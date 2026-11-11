@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f3eee4;
+  --card: #fffdf8;
+  --ink: #1c1915;
+  --muted: #5c564c;
+  --line: #ddd3c3;
+  --pine: #0f6a4e;
+  --pine-ink: #08382a;
+  --brass: #6e4710;
+  --stamp: #8c2f2f;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-pine: var(--pine);
+  --color-pine-ink: var(--pine-ink);
+  --color-brass: var(--brass);
+  --color-stamp: var(--stamp);
+  --font-sans: var(--font-atkinson), "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+body {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(28, 25, 21, 0.035) 28px
+  );
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #d5e6dc;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pine);
+  outline-offset: 2px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}

@@ -1,0 +1,1233 @@
+{
+  "generated_on": "2026-11-10",
+  "timezone": "America/New_York",
+  "count": 41,
+  "notes": "Every value is taken from a public IRTA or NATE directory listing and/or the exchange's own website, checked with curl on 2026-11-10 (America/New_York). Fields are null when a figure was not published. cash_fee_percent is set only when the site states a single percentage; plan ranges and qualitative fee language are in fees_notes. Software vendors (Trade Studio, VirtualBarter), parked domains, and non-exchange IRTA listings were omitted. Several additional directory members had websites that failed TLS or returned only a captcha/challenge and are not included.",
+  "primary_directory_sources": [
+    "https://irta.com/member-directory/",
+    "https://nate.tradestudio.com/member_directory.aspx"
+  ],
+  "exchanges": [
+    {
+      "name": "Alamo Barter",
+      "slug": "alamo-barter",
+      "website": "https://alamobarter.com/",
+      "city": "San Antonio",
+      "state_region": "TX",
+      "country": "US",
+      "phone": "210-650-9300",
+      "email": "info@alamobarter.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Alamo Barter is a commercial trade exchange serving Texas businesses. Members sell unused capacity or inventory into the network for trade credits they can spend with other members, which the company pitches as a way to gain new customers and conserve cash.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://alamobarter.com/",
+        "https://alamobarter.com/About.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Americas Barter Exchange",
+      "slug": "americas-barter-exchange",
+      "website": "https://americasbarterexchange.com/",
+      "city": "Provo",
+      "state_region": "UT",
+      "country": "US",
+      "phone": "(801) 802-0322",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Americas Barter Exchange (also called America's Barter Exchange or ABE) is a Utah trade exchange that also lists service areas in Las Vegas and along the Wasatch Front. The company says it was established in 2012 and previously operated as the Utah Trading Company.",
+      "cash_fee_percent": 6.0,
+      "monthly_dues": "$10 cash plus $10 trade",
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "How-it-works page states members pay a monthly membership fee of $10 trade and $10 cash, plus a 6% cash fee for all trade transactions.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2012,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://americasbarterexchange.com/",
+        "https://americasbarterexchange.com/about-us/",
+        "https://americasbarterexchange.com/how-it-works/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Arizona Trade Exchange",
+      "slug": "arizona-trade-exchange",
+      "website": "https://arizonatradeexchange.com/",
+      "city": "Mesa",
+      "state_region": "AZ",
+      "country": "US",
+      "phone": "(480) 633-9363",
+      "email": "Duane@arizonatradeexchange.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "Arizona Trade Exchange is a Phoenix-area business-to-business trade network. Members earn trade credits by selling to other members and can spend them in the exchange's showroom, certificate shop, or with other members.",
+      "cash_fee_percent": 12.0,
+      "monthly_dues": "$10.00 cash and $10.00 trade ($20.00 total)",
+      "annual_dues": null,
+      "joining_fee": "One-time membership fee (amount not published on the FAQ page)",
+      "fees_notes": "FAQ: members pay a one-time membership fee to join, a 12% cash commission when they spend trade credits, and a monthly maintenance fee of $20.00 paid $10.00 in cash and $10.00 in trade. The exchange says it does not charge members when they sell.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1999,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://arizonatradeexchange.com/",
+        "https://arizonatradeexchange.com/About.aspx",
+        "https://arizonatradeexchange.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Atlantic Barter",
+      "slug": "atlantic-barter",
+      "website": "https://atlanticbarter.com/",
+      "city": "Newark",
+      "state_region": "DE",
+      "country": "US",
+      "phone": "(302) 654-5650",
+      "email": "christine@atlanticbarter.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "Atlantic Barter is a Mid-Atlantic trade exchange established in 1993. It describes itself as the largest barter company in the region, with more than 1,000 members and reciprocal arrangements with other exchanges through NATE.",
+      "cash_fee_percent": 12.5,
+      "monthly_dues": "$10.00 cash and $10.00 trade",
+      "annual_dues": null,
+      "joining_fee": "$495.00 cash for small businesses (under 20 employees), plus a $100 trade initial fee",
+      "fees_notes": "FAQ publishes a one-time cash membership fee of $495.00 for small businesses (under 20 employees), a one-time initial trade fee of $100, a monthly administrative charge of $10.00 cash and $10.00 trade, and a 12.5% cash commission charged only on purchases.",
+      "approx_member_count": 1000,
+      "member_count_notes": "About page: 'more than 1,000 members.'",
+      "year_founded": 1993,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://atlanticbarter.com/",
+        "https://atlanticbarter.com/About.aspx",
+        "https://atlanticbarter.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Barter Business Unlimited",
+      "slug": "barter-business-unlimited",
+      "website": "https://bbubarter.com/",
+      "city": "Bristol",
+      "state_region": "CT",
+      "country": "US",
+      "phone": "860-583-2281",
+      "email": "info@bbubarter.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Barter Business Unlimited (BBU) is a Connecticut trade exchange. Members sell goods or services into the network and spend the resulting trade credits with other member businesses to increase sales and conserve cash.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "FAQ says there is a one-time membership investment plus transaction and modest monthly fees, but does not publish dollar amounts or a cash-fee percentage.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://bbubarter.com/",
+        "https://bbubarter.com/faqs/",
+        "https://bbubarter.com/bbu-affiliates/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Barter Business Exchange",
+      "slug": "barter-business-exchange",
+      "website": "https://ncbarter.com/",
+      "city": "Cary",
+      "state_region": "NC",
+      "country": "US",
+      "phone": "919-469-5538",
+      "email": "maurya@ncbarter.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Barter Business Exchange (BBE) calls itself North Carolina's largest bartering network for business owners. The company says it has been in business since 1994 and that members can also trade nationally and globally through NATE and IRTA.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1994,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://ncbarter.com/",
+        "https://ncbarter.com/Why-Choose-BBE/BBE-Membership-Affiliates"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Barter Network Ltd.",
+      "slug": "barter-network-ltd",
+      "website": "https://barternetwork.ca/",
+      "city": "North York",
+      "state_region": "ON",
+      "country": "CA",
+      "phone": "866-362-2783",
+      "email": "inquiries@barternetwork.ca",
+      "networks": [
+        "IRTA",
+        "UC"
+      ],
+      "description": "Barter Network Ltd. (BNL) is a Canada-wide business-to-business trade exchange operating since 2000. It describes itself as Canada's largest barter company, with access to other exchanges through IRTA's Universal Currency.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "The public site does not state a cash-fee percentage or dues amounts.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2000,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://barternetwork.ca/",
+        "https://barternetwork.ca/about-us/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Barter Connect",
+      "slug": "barter-connect",
+      "website": "https://www.barterconnect.com/",
+      "city": "Bangkok",
+      "state_region": "Bangkok",
+      "country": "TH",
+      "phone": "02-024-1000",
+      "email": "info@barterconnect.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Barter Connect is a cashless exchange community for Thai SMEs. Businesses trade goods and services with one another to cut cash expenses, improve liquidity, and find new counterparties.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.barterconnect.com/",
+        "https://www.barterconnect.com/about.html"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Bartercard UK",
+      "slug": "bartercard-uk",
+      "website": "https://bartercard.co.uk/",
+      "city": "Northallerton",
+      "state_region": "North Yorkshire",
+      "country": "GB",
+      "phone": "020 4586 7714",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Bartercard UK is the United Kingdom arm of the Bartercard trade-exchange network. Members sell to and buy from other businesses using trade pounds on a cashless platform; the UK site advertises access to more than 55,000 business partners on the wider Bartercard network.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "Published plan pricing (from https://bartercard.co.uk/pricing/): monthly plans include Online (£0 joining, £25/month, 15% cash transaction fee), Green (£495 joining, £25/month, 6.5%), Gold (£995 joining, £25/month, 5.5%), and Platinum (£1,995 joining, £25/month, 4.5%). Yearly plans are also listed with different cash-fee rates (for example Online £150/year at 15%, Standard £250/year plus £495 joining at 7%, Corporate £450/year plus £995 joining at 5%, Premium £950/year plus £1,995 joining at 2%). Because rates vary by plan, cash_fee_percent is left null.",
+      "approx_member_count": 55000,
+      "member_count_notes": "UK site states 'more than 55,000 business partners' and '55,000 Account Holders'; this appears to be the global Bartercard network, not UK-only membership.",
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://bartercard.co.uk/",
+        "https://bartercard.co.uk/about/",
+        "https://bartercard.co.uk/pricing/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BarterSaves",
+      "slug": "bartersaves",
+      "website": "https://bartersaves.com/",
+      "city": "Red Bank",
+      "state_region": "NJ",
+      "country": "US",
+      "phone": "732-859-8694",
+      "email": "rene@bartersaves.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "BarterSaves is a business barter exchange with listed offices serving New Jersey, New York, Florida, and the Maryland/DC/Virginia area. It markets membership as a way to gain new customers, save cash, and spend trade credits across the network.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://bartersaves.com/",
+        "https://bartersaves.com/About.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BBX Global",
+      "slug": "bbx-global",
+      "website": "https://bbxworld.com/",
+      "city": "Singapore",
+      "state_region": null,
+      "country": "SG",
+      "phone": "852-300-85832",
+      "email": "info@bbxworld.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "BBX is a global B2B digital trade platform on which businesses exchange surplus goods or unused capacity for Digital Trade Credits instead of cash. The company says it began in Australia in 1993 and now lists markets including Australia, Costa Rica, Cyprus, India, Malaysia, New Zealand, Singapore, Thailand, and the UK.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1993,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://bbxworld.com/GL/en/home",
+        "https://bbxworld.com/GL/en/AboutBBX"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BBX UK",
+      "slug": "bbx-uk",
+      "website": "https://bbxuk.com/",
+      "city": "Bournemouth",
+      "state_region": "Dorset",
+      "country": "GB",
+      "phone": "0333-400-2014",
+      "email": "laura.whitemore@bbxworld.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "BBX UK is the United Kingdom franchise of the BBX cashless trading community. It helps local businesses convert unused stock, time, or space into customers inside the BBX network and advertises a first-year sales guarantee tied to setup and card fees.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "The homepage refers to a one-off account advertising, promotion and set-up subscription plus an annual card fee (and a first-12-month sales guarantee), but the public pages checked did not state a single cash-fee percentage or the exact dues amounts.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://bbxuk.com/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BexB (In-Lire S.p.A.)",
+      "slug": "bexb",
+      "website": "https://bexb.it/",
+      "city": "Brescia",
+      "state_region": "Lombardy",
+      "country": "IT",
+      "phone": "39-030-2059770",
+      "email": "bexb@bexb.it",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Circuito BexB, operated by In-Lire S.p.A., is an Italian commercial-intermediation circuit that has helped member companies buy and sell among themselves since 2001. The company describes itself as a shared purchasing office and states that more than €400 million has been transacted on the circuit since 2012.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2001,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://bexb.it/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BizX",
+      "slug": "bizx",
+      "website": "https://www.bizx.com/",
+      "city": "Bellevue",
+      "state_region": "WA",
+      "country": "US",
+      "phone": "800-939-2499",
+      "email": "help@bizx.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "BizX is a West Coast business-to-business digital barter exchange. Members buy and sell among one another with BizX dollars instead of cash; the company says joining the community has no membership fees.",
+      "cash_fee_percent": null,
+      "monthly_dues": "None (site: no membership fees)",
+      "annual_dues": "None (site: no membership fees)",
+      "joining_fee": null,
+      "fees_notes": "Homepage: 'There are no membership fees to be a part of our business community.' Pricing page: 'Transaction fees between 6-7.5%' with a note to request a customized rate quote. FAQ: BizX earns a cash fee on both sides of a transaction. Because the published cash fee is a range, cash_fee_percent is left null.",
+      "approx_member_count": 6700,
+      "member_count_notes": "FAQ: 'over 6,700 businesses participating in BizX currently.'",
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://www.bizx.com/",
+        "https://www.bizx.com/bizx-pricing/",
+        "https://www.bizx.com/faq",
+        "https://www.bizx.com/about"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Business Owners Trade Alliance",
+      "slug": "business-owners-trade-alliance",
+      "website": "https://botatrade.com/",
+      "city": "Allentown",
+      "state_region": "PA",
+      "country": "US",
+      "phone": "484-225-6063",
+      "email": "info@botatrade.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Business Owners Trade Alliance (BOTA) is an eastern Pennsylvania trade exchange. Members buy goods and services with BOTA Trade Dollars to keep cash in the bank and sell into a local barter community; the FAQ also notes IRTA membership for trading with businesses in the U.S. and abroad.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://botatrade.com/",
+        "https://botatrade.com/faq/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Clube de Permuta",
+      "slug": "clube-de-permuta",
+      "website": "https://sitenovo.clubedepermuta.com.br/",
+      "city": "Belo Horizonte",
+      "state_region": "Minas Gerais",
+      "country": "BR",
+      "phone": "55-31-2552-4442",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Clube de Permuta is a Brazilian business-relationship and barter platform. Companies join as associates or franchisees and trade products and services inside the club, which says it has completed a large volume of nearly cashless transactions among more than 2,060 associates.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 2060,
+      "member_count_notes": "Homepage: 'mais de 2060 associados.'",
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://sitenovo.clubedepermuta.com.br/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Colorado Currency",
+      "slug": "colorado-currency",
+      "website": "https://coloradocurrency.com/",
+      "city": "Golden",
+      "state_region": "CO",
+      "country": "US",
+      "phone": "720-473-6610",
+      "email": "info@coloradocurrency.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Colorado Currency is a Colorado B2B barter community (listed on the NATE directory as Corporate Barter Solutions, with this same website). It has operated since 2009 and says membership in NATE and IRTA gives members access to other exchanges.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": "No sign-up fees; site says membership is always free",
+      "fees_notes": "Site: 'BARTER NOW - NO SIGN-UP FEES' and 'Membership is always free. You pay only a small monthly accounting fee and minimal fee for each barter transaction.' The public pages checked do not state the dollar amount or cash-fee percentage.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2009,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://coloradocurrency.com/",
+        "https://coloradocurrency.com/faq"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Crescent City Trade Exchange",
+      "slug": "crescent-city-trade-exchange",
+      "website": "https://crescentcitytrade.net/",
+      "city": "New Orleans",
+      "state_region": "LA",
+      "country": "US",
+      "phone": "504-482-9000",
+      "email": "tanya@crescentcitytrade.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Crescent City Trade Exchange is a locally owned New Orleans-area barter exchange established in 1994. It offers a member directory and marketplace so Southern Louisiana businesses can trade without exchanging cash, and it cites membership in national and international trade associations for broader reach.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1994,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://crescentcitytrade.net/",
+        "https://crescentcitytrade.net/about-ccte/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Green Apple Barter",
+      "slug": "green-apple-barter",
+      "website": "https://greenapplebarter.com/",
+      "city": "Pittsburgh",
+      "state_region": "PA",
+      "country": "US",
+      "phone": "412-821-2900",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Green Apple Barter (also styled Greenapple Business Services in the IRTA directory) is a Pittsburgh-area trade exchange that has served clients since 1991. Brokers introduce members to buyers and sellers and keep the books in trade credits.",
+      "cash_fee_percent": 6.0,
+      "monthly_dues": "$40 total, half cash and half trade",
+      "annual_dues": null,
+      "joining_fee": "$400 start-up fee, half cash and half trade",
+      "fees_notes": "FAQ: a 6% cash fee is charged with each purchase and sale; one-time start-up fee of $400 (half cash, half trade); monthly service charge of $40 (half cash, half trade). No contract length; members may cancel at any time.",
+      "approx_member_count": null,
+      "member_count_notes": "Homepage and FAQ say 'Over 10,000 clients served since 1991,' which is a cumulative figure, not a current member count, so approx_member_count is left null.",
+      "year_founded": 1991,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://greenapplebarter.com/",
+        "https://greenapplebarter.com/About.aspx",
+        "https://greenapplebarter.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "IMS Barter",
+      "slug": "ims-barter",
+      "website": "https://www.imsbarter.com/",
+      "city": "New Berlin",
+      "state_region": "WI",
+      "country": "US",
+      "phone": "800-559-8515",
+      "email": "kim.strabley@imsbarter.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "IMS Barter (International Monetary Systems) is a national B2B trade-exchange network founded in 1985 in New Berlin, Wisconsin. Members sell excess products or unused time into the network and spend trade dollars with other IMS clients.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 12000,
+      "member_count_notes": "Homepage refers to 'the other 12,000 clients within the IMS network.' The about page separately says the organization consists of 'over 14,000 member trade organizations.' The homepage client figure is recorded here.",
+      "year_founded": 1985,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.imsbarter.com/",
+        "https://www.imsbarter.com/about-ims-barter",
+        "https://www.imsbarter.com/about-ims-barter/affiliations"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Local Trade Partners",
+      "slug": "local-trade-partners",
+      "website": "https://www.localtradepartners.com/",
+      "city": "Fayetteville",
+      "state_region": "AR",
+      "country": "US",
+      "phone": "479-443-1977",
+      "email": "help@localtradepartners.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Local Trade Partners is a business barter exchange for Northwest Arkansas and the River Valley. Members sell to one another for LTP trade dollars and spend those credits at participating restaurants, service providers, and shops.",
+      "cash_fee_percent": 10.0,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "FAQ: '$0 Transaction fee when you sell' and '10% Typical cash transaction fee when you buy.' It also notes that membership and other charges may apply, without publishing those amounts.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://www.localtradepartners.com/",
+        "https://www.localtradepartners.com/about",
+        "https://www.localtradepartners.com/faqs"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Loycal",
+      "slug": "loycal",
+      "website": "https://loycal.com/",
+      "city": "Mills River",
+      "state_region": "NC",
+      "country": "US",
+      "phone": null,
+      "email": "gfield@loycal.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Loycal ('loyal to local') is a barter exchange network that connects local-focused businesses so they can trade unused capacity or unsold inventory for things they need. It combines an online marketplace with offline networking under the name Loycal B2B Connect.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://loycal.com/",
+        "https://loycal.com/about-2/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Nantucket Trade Bank",
+      "slug": "nantucket-trade-bank",
+      "website": "https://nantuckettradebank.com/",
+      "city": "Nantucket",
+      "state_region": "MA",
+      "country": "US",
+      "phone": null,
+      "email": "info@nantuckettradebank.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Nantucket Trade Bank is a local trade exchange for the Nantucket Island business community. Members use Nantucket Trade Dollars in place of cash so more spending stays with other island businesses. The site says it launched on December 10, 2013 and ran in beta for a year.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2013,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nantuckettradebank.com/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "BancMarc (The Barter Authority)",
+      "slug": "bancmarc",
+      "website": "https://barterauthority.com/",
+      "city": "Henrico",
+      "state_region": "VA",
+      "country": "US",
+      "phone": "804-285-2554",
+      "email": "contact@bancmarc.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "BancMarc is a cashless business trade network based in the Richmond, Virginia area. The IRTA directory still lists the company as The Barter Authority at the same Henrico address; the website at barterauthority.com now presents the BancMarc brand and says it has helped businesses since 1980.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1980,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://barterauthority.com/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "The Barter Company",
+      "slug": "the-barter-company",
+      "website": "https://barterco.com/",
+      "city": "Kennesaw",
+      "state_region": "GA",
+      "country": "US",
+      "phone": "770-591-4343",
+      "email": "info@barterco.com",
+      "networks": [
+        "IRTA",
+        "NATE",
+        "BANC",
+        "UC"
+      ],
+      "description": "The Barter Company (TBC) is a Metro Atlanta and Southeast business-to-business trade exchange that has operated since 1996. It says 2,000+ businesses use the network and that members can also trade more widely through BANC and Universal Currency.",
+      "cash_fee_percent": 7.5,
+      "monthly_dues": "$15 cash and $15 barter",
+      "annual_dues": "None (FAQ: 'We do not charge an annual fee')",
+      "joining_fee": "$395",
+      "fees_notes": "FAQ: initial investment $395; 7.5% cash transaction fee on each transaction when you buy and sell; monthly accounting fee of $15 cash and $15 barter; no annual fee. If a member does not earn $1,000 in barter dollars in the first year, TBC says it will refund the $395 initial investment.",
+      "approx_member_count": 2000,
+      "member_count_notes": "Site: '2,000+ businesses use The Barter' and FAQ 'trade network of 2,000+ clients.'",
+      "year_founded": 1996,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://barterco.com/",
+        "https://barterco.com/About.aspx",
+        "https://barterco.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Tradaq Brasil",
+      "slug": "tradaq-brasil",
+      "website": "https://tradaq.com.br/",
+      "city": "São Paulo",
+      "state_region": "SP",
+      "country": "BR",
+      "phone": "+55 11 3848 2800",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Tradaq is a Brazilian corporate barter network that connects companies so they can trade products and services using Tradaq credits and reduce cash outlays. The site says more than 1,000 companies take part and that the network has handled more than 169,000 operations.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 1000,
+      "member_count_notes": "Homepage: 'mais de 1.000 empresas' / 'Mais de 1.000 associados.'",
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://tradaq.com.br/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Trade Network",
+      "slug": "trade-network",
+      "website": "https://www.tradenetwork.org/",
+      "city": "Lansing",
+      "state_region": "MI",
+      "country": "US",
+      "phone": "517-886-8900",
+      "email": "evan@tradenetwork.org",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "Trade Network is a Michigan B2B barter exchange that has served local businesses since 1991. Members earn and spend trade dollars inside a statewide marketplace the company says includes more than 1,000 Michigan businesses.",
+      "cash_fee_percent": 12.0,
+      "monthly_dues": "None (FAQ: 'There are no monthly fees or hidden costs.')",
+      "annual_dues": "Small annual renewal fee paid in trade dollars after the first year (amount not published)",
+      "joining_fee": null,
+      "fees_notes": "FAQ: membership can start for free; a 12% cash commission is collected only when a member spends trade dollars; a small annual renewal fee (paid in trade dollars) applies after the first year; no monthly fees. The site also says members pay nothing if they do not see new customers after joining.",
+      "approx_member_count": 1000,
+      "member_count_notes": "Homepage: 'Join more than 1,000 Michigan businesses.'",
+      "year_founded": 1991,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://www.tradenetwork.org/",
+        "https://www.tradenetwork.org/who-we-are",
+        "https://www.tradenetwork.org/faq"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Tradebank",
+      "slug": "tradebank",
+      "website": "https://www.tradebank.com/",
+      "city": "Canton",
+      "state_region": "GA",
+      "country": "US",
+      "phone": "678-533-7120",
+      "email": "ucbroker@tradebank.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Tradebank is a business barter exchange that has operated since 1987. It works with members across many industries so they can sell unused capacity for trade dollars and spend those credits instead of cash.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1987,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.tradebank.com/",
+        "https://www.tradebank.com/about-us"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Trade Euro",
+      "slug": "trade-euro",
+      "website": "https://tradeeuro.eu/",
+      "city": "Brussels",
+      "state_region": "Brussels",
+      "country": "BE",
+      "phone": "+32 475 44 76 76",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Trade Euro is a complementary payment system for entrepreneurs, based in Brussels. Member businesses trade with one another using Trade Euro as a medium of exchange, which the company promotes as a way to raise turnover and find new customers.",
+      "cash_fee_percent": 4.5,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": "€495 excl. VAT, one-time",
+      "fees_notes": "FAQ (Dutch): one-time joining fee of €495 excl. VAT, plus a service fee (service-vergoeding) of 4.5% on sales made in Trade Euro.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://tradeeuro.eu/",
+        "https://tradeeuro.eu/faq/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "TradeFirst",
+      "slug": "tradefirst",
+      "website": "https://tradefirst.com/",
+      "city": "Oak Park",
+      "state_region": "MI",
+      "country": "US",
+      "phone": "248-544-1350",
+      "email": "marketing@tradefirst.com",
+      "networks": [
+        "IRTA",
+        "NATE"
+      ],
+      "description": "TradeFirst is a long-running Midwestern trade network, founded in 1978 as Michigan Trade Exchange. It now says it serves 5,000+ member businesses in Michigan, Ohio, Florida, and Caribbean regions, brokering trade across more than 1,000 categories.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "Public FAQ pages checked do not publish a cash transaction-fee percentage or membership dues. They do state that TradeFirst lines of credit accrue monthly interest of 1.5% payable in TradeDollars, not cash.",
+      "approx_member_count": 5000,
+      "member_count_notes": "About page: '5,000 MEMBERS STRONG'; FAQ: 'all 5,000+ member business owners.'",
+      "year_founded": 1978,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://tradefirst.com/",
+        "https://tradefirst.com/about/",
+        "https://tradefirst.com/faqs/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Tradesource",
+      "slug": "tradesource",
+      "website": "https://tradesource.net/",
+      "city": "Phoenix",
+      "state_region": "AZ",
+      "country": "US",
+      "phone": "602-996-1557",
+      "email": "info@tradesource.net",
+      "networks": [
+        "IRTA",
+        "NATE",
+        "UC",
+        "BANC"
+      ],
+      "description": "Tradesource brings local companies and consumers together using trade credits and a loyalty club. The company states that it belongs to IRTA (Universal Currency) and NATE (BANC) so members can clear trades with other exchanges.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://tradesource.net/",
+        "https://tradesource.net/about.html"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "TradeWorks NY",
+      "slug": "tradeworks-ny",
+      "website": "https://www.tradeworksny.com/",
+      "city": "Kings Park",
+      "state_region": "NY",
+      "country": "US",
+      "phone": "631-269-4400",
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "TradeWorks is an independently owned business-to-business barter exchange in the New York region. Members sell goods or services for trade dollars and spend them with other TradeWorks members.",
+      "cash_fee_percent": 10.0,
+      "monthly_dues": "$10.00 cash and $10.00 trade",
+      "annual_dues": null,
+      "joining_fee": "$399.00 cash plus a $99.00 trade initial fee",
+      "fees_notes": "FAQ: one-time cash membership fee of $399.00 and a one-time initial trade fee of $99.00; monthly administrative charge of $10.00 cash and $10.00 trade; 10% cash commission charged only on purchases.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.tradeworksny.com/",
+        "https://www.tradeworksny.com/about-us/",
+        "https://www.tradeworksny.com/faqs/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Western Trade Alliance",
+      "slug": "western-trade-alliance",
+      "website": "https://www.westerntradealliance.com/",
+      "city": "Reno",
+      "state_region": "NV",
+      "country": "US",
+      "phone": null,
+      "email": null,
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Western Trade Alliance is a business-to-business barter exchange serving Sacramento, Northern Nevada, and Eastern California. Founded in 2011, it says it has over 500 active local members and is networked with other exchanges across the country.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 500,
+      "member_count_notes": "Homepage: 'WTA has over 500 active local members and we are networked with thousands more across the country.' The 500 figure is the local member count recorded here.",
+      "year_founded": 2011,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.westerntradealliance.com/",
+        "https://www.westerntradealliance.com/faq.html"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "IBE Barter Exchange",
+      "slug": "ibe-barter-exchange",
+      "website": "https://ibebarter.com/",
+      "city": "Sarasota",
+      "state_region": "FL",
+      "country": "US",
+      "phone": "(941) 955-6100",
+      "email": "mary.unger@ibebarter.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "IBE Barter Exchange is a Florida trade exchange, based in downtown Sarasota, that has operated since 1991. Members earn IBE Currency by selling products or unused capacity and spend it with other members or through reciprocal arrangements with other exchanges.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": "FAQ says there is a one-time membership investment plus transaction and modest monthly fees, but does not publish dollar amounts or a cash-fee percentage.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1991,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://ibebarter.com/",
+        "https://ibebarter.com/About.aspx",
+        "https://ibebarter.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "National Commerce Exchange",
+      "slug": "national-commerce-exchange",
+      "website": "https://ncetrade.com/",
+      "city": "Jericho",
+      "state_region": "NY",
+      "country": "US",
+      "phone": "(516) 935-2280",
+      "email": "kpaer@ncetrade.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "National Commerce Exchange (NCE) is a Long Island-based trade exchange founded in 1980. It says it now includes more than 2,500 businesses that trade with one another for the goods and services they need.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 2500,
+      "member_count_notes": "Site: 'Comprised currently of more than 2,500 businesses that trade with one another.'",
+      "year_founded": 1980,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://ncetrade.com/",
+        "https://ncetrade.com/FAQ.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "New England Trade",
+      "slug": "new-england-trade",
+      "website": "https://newenglandtrade.com/",
+      "city": "Malden",
+      "state_region": "MA",
+      "country": "US",
+      "phone": "(781) 388-9200",
+      "email": "barter@newenglandtrade.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "New England Trade is a Massachusetts trade exchange. It markets barter as a way for members to save cash and gain customers, and the homepage links to a public statement-of-fees page, but that fees page returned only a browser-check interstitial when retrieved, so no fee figures are recorded.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": "Homepage says 'Connecting 10,000 businesses over the course of 40 years,' which is a cumulative figure, not a current member count, so approx_member_count is left null.",
+      "year_founded": null,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://newenglandtrade.com/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Southern Barter Exchange",
+      "slug": "southern-barter-exchange",
+      "website": "https://www.southernbarter.com/",
+      "city": "Little Rock",
+      "state_region": "AR",
+      "country": "US",
+      "phone": "501.376.2278",
+      "email": "geoff@southernbarter.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "Southern Barter Exchange is an Arkansas trade exchange established in 1982. It acts as a third-party record keeper so member companies can buy and sell among themselves using trade dollars equivalent to U.S. dollars.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": 600,
+      "member_count_notes": "A member testimonial published on the homepage says 'Today with over 600 active businesses.' That is the only current-size figure found on the public pages checked.",
+      "year_founded": 1982,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://www.southernbarter.com/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "TradeAmericanCard",
+      "slug": "trade-american-card",
+      "website": "https://www.tradeamericancard.com/",
+      "city": "Irvine",
+      "state_region": "CA",
+      "country": "US",
+      "phone": "(949) 225-6000",
+      "email": "kima@tradeamericancard.com",
+      "networks": [
+        "NATE",
+        "BANC"
+      ],
+      "description": "TradeAmericanCard is a Southern California trade exchange and a founding member of NATE. Members earn trade credits they can spend with other members and, through BANC, with other participating exchanges nationally. The www hostname responds; the apex domain's TLS certificate did not match.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://www.tradeamericancard.com/",
+        "https://www.tradeamericancard.com/asp/Site/About/History/index.asp"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Saturn Barter Company",
+      "slug": "saturn-barter-company",
+      "website": "https://saturnbarter.com/",
+      "city": "Puyallup",
+      "state_region": "WA",
+      "country": "US",
+      "phone": "253-212-9930",
+      "email": "hello@saturnbarter.com",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Saturn Barter Company is a Washington State trade exchange based in Puyallup. Members earn trade dollars from one member and spend them with any other member, using the network to turn slow days or surplus inventory into purchases without cash.",
+      "cash_fee_percent": 6.0,
+      "monthly_dues": "$10.00 cash and $10.00 trade",
+      "annual_dues": null,
+      "joining_fee": "$299.00 one-time cash enrollment fee (the join page says this is not billed until the account membership is completed)",
+      "fees_notes": "Join page: trading commissions of 6.0% cash on all sales and 6.0% cash on all purchases; monthly administration of $10.00 cash and $10.00 trade; standard enrollment fee of $299.00 cash.",
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": null,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://saturnbarter.com/",
+        "https://saturnbarter.com/Join.aspx"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Exchange Enterprises",
+      "slug": "exchange-enterprises",
+      "website": "https://exchangeenterprises.com/",
+      "city": "Stratford",
+      "state_region": "CT",
+      "country": "US",
+      "phone": "(203) 386-9466",
+      "email": "Sharon@ExchangeEnterprises.com",
+      "networks": [
+        "NATE"
+      ],
+      "description": "Exchange Enterprises (also called EE or The Exchange) is a Connecticut commercial trade exchange established in 1983 in Darien and now headquartered in Stratford. It describes itself as Connecticut's longest continuously operated barter or trade exchange and emphasizes independently owned, personal service for member businesses.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 1983,
+      "source_urls": [
+        "https://nate.tradestudio.com/member_directory.aspx",
+        "https://exchangeenterprises.com/",
+        "https://exchangeenterprises.com/about/",
+        "https://exchangeenterprises.com/faq/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    },
+    {
+      "name": "Sardex",
+      "slug": "sardex",
+      "website": "https://www.sardexpay.net/",
+      "city": "Serramanna",
+      "state_region": "Sardinia",
+      "country": "IT",
+      "phone": "39 348-9839-698",
+      "email": "giuseppe.littera@sardex.net",
+      "networks": [
+        "IRTA"
+      ],
+      "description": "Sardex (branded SardexPay on the current site) is an Italian complementary-currency community, based in Sardinia, in which businesses exchange goods and services by paying in Sardex rather than cash, at zero interest. A site news item dated 21 June 2025 marks Sardex's 15th anniversary, implying a 2010 founding year.",
+      "cash_fee_percent": null,
+      "monthly_dues": null,
+      "annual_dues": null,
+      "joining_fee": null,
+      "fees_notes": null,
+      "approx_member_count": null,
+      "member_count_notes": null,
+      "year_founded": 2010,
+      "source_urls": [
+        "https://irta.com/member-directory/",
+        "https://www.sardexpay.net/"
+      ],
+      "website_http_status": 200,
+      "last_checked": "2026-11-10"
+    }
+  ]
+}
