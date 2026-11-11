@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f3eee4;
-  --card: #fffdf8;
-  --ink: #1c1915;
-  --muted: #5c564c;
-  --line: #ddd3c3;
-  --pine: #0f6a4e;
-  --pine-ink: #08382a;
-  --brass: #6e4710;
-  --stamp: #8c2f2f;
+  --paper: #080a10;
+  --card: #141824;
+  --ink: #e8eef7;
+  --muted: #a7b3c7;
+  --line: #2a3a4a;
+  --pine: #2ee0cc;
+  --pine-ink: #9af3e6;
+  --brass: #f0d24a;
+  --stamp: #ff6b9a;
 }
 
 @theme inline {
@@ -23,23 +23,34 @@
   --color-brass: var(--brass);
   --color-stamp: var(--stamp);
   --font-sans: var(--font-atkinson), "Avenir Next", "Segoe UI", sans-serif;
-  --font-display: var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", serif;
+  --font-display: var(--font-rajdhani), "Rajdhani", "Segoe UI", sans-serif;
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--paper);
 }
 
 body {
   background-color: var(--paper);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    rgba(28, 25, 21, 0.035) 28px
-  );
+  background-image:
+    linear-gradient(rgba(46, 224, 208, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 224, 208, 0.045) 1px, transparent 1px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(8, 10, 16, 0.35) 3px
+    );
+  background-size: 40px 40px, 40px 40px, 100% 3px;
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
 }
 
 ::selection {
-  background: #d5e6dc;
+  background: rgba(46, 224, 208, 0.32);
+  color: var(--ink);
 }
 
 :focus-visible {
@@ -49,4 +60,50 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+#content h1,
+header .font-display {
+  text-shadow: 0 0 18px rgba(46, 224, 208, 0.28);
+}
+
+a {
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  text-shadow: 0 0 10px rgba(46, 224, 208, 0.28);
+}
+
+.bg-pine {
+  box-shadow:
+    0 0 0 1px rgba(46, 224, 208, 0.28),
+    0 0 14px rgba(46, 224, 208, 0.3);
+}
+
+.bg-pine:hover {
+  box-shadow:
+    0 0 0 1px rgba(46, 224, 208, 0.4),
+    0 0 20px rgba(46, 224, 208, 0.4);
+}
+
+input,
+select,
+textarea {
+  color: var(--ink);
+  color-scheme: dark;
+}
+
+::placeholder {
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+  }
 }

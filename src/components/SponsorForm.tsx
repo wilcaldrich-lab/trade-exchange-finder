@@ -83,10 +83,10 @@ export function SponsorForm() {
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
-      <button type="submit" disabled={pending} className="h-12 rounded-md bg-ink text-sm font-bold text-card disabled:opacity-60">
+      <button type="submit" disabled={pending} className="h-12 rounded-md bg-pine text-sm font-bold text-paper disabled:opacity-60">
         {pending ? "Sending…" : "Send"}
       </button>
-      {message ? <p className="text-sm text-pine-ink">{message}</p> : null}
+      {message ? <p className="text-sm text-pine">{message}</p> : null}
       {error ? <p className="text-sm text-stamp" role="alert">{error}</p> : null}
     </form>
   );

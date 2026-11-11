@@ -5,7 +5,7 @@ export function Header() {
     <header className="border-b border-line bg-card/95">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2">
         <Link href="/" className="flex min-w-0 items-center gap-2">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-ink font-display text-lg leading-none">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-pine font-display text-lg leading-none text-pine">
             Bx
           </span>
           <span className="min-w-0">
@@ -22,7 +22,7 @@ export function Header() {
           <Link href="/submit" className="rounded-md px-2.5 py-2 hover:bg-paper">
             Submit
           </Link>
-          <Link href="/sponsor" className="rounded-md bg-pine px-3 py-2 font-bold text-white hover:bg-pine-ink">
+          <Link href="/sponsor" className="rounded-md bg-pine px-3 py-2 font-bold text-paper hover:bg-pine/90">
             Sponsor
           </Link>
         </nav>
