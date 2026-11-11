@@ -54,7 +54,7 @@ export function SignupForm({ source }: { source: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="h-12 rounded-md bg-ink px-4 text-sm font-bold text-card disabled:opacity-60"
+          className="h-12 rounded-md bg-pine px-4 text-sm font-bold text-paper disabled:opacity-60"
         >
           {pending ? "Saving…" : "Sign up"}
         </button>
@@ -63,7 +63,7 @@ export function SignupForm({ source }: { source: string }) {
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
-      {message ? <p className="text-sm text-pine-ink">{message}</p> : null}
+      {message ? <p className="text-sm text-pine">{message}</p> : null}
       {error ? <p className="text-sm text-stamp" role="alert">{error}</p> : null}
     </form>
   );

@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Atkinson_Hyperlegible, Fraunces } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Atkinson_Hyperlegible, Rajdhani } from "next/font/google";
 import { after, connection } from "next/server";
 import { headers } from "next/headers";
 import "./globals.css";
@@ -16,11 +16,16 @@ const sans = Atkinson_Hyperlegible({
   variable: "--font-atkinson",
 });
 
-const display = Fraunces({
+const display = Rajdhani({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-  variable: "--font-fraunces",
+  variable: "--font-rajdhani",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#080a10",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
