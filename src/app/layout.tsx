@@ -4,6 +4,7 @@ import { after, connection } from "next/server";
 import { headers } from "next/headers";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
 import { SponsorBar } from "@/components/SponsorBar";
 import { recordPageview } from "@/lib/pageviews";
@@ -75,6 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {children}
         </main>
         <Footer />
+        <GoogleAnalytics />
       </body>
     </html>
   );
