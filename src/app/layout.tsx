@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible, Rajdhani } from "next/font/google";
-import { after, connection } from "next/server";
-import { headers } from "next/headers";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
 import { SponsorBar } from "@/components/SponsorBar";
-import { recordPageview } from "@/lib/pageviews";
 import { HOUSE_SPONSOR_SLUG, siteUrl } from "@/lib/site";
 import { getBarSponsor } from "@/lib/sponsors";
 
@@ -37,26 +34,18 @@ export const metadata: Metadata = {
   description:
     "A directory of business barter and trade exchanges for small business owners. Compare location, networks, and published fees. Missing figures are marked Not published.",
   applicationName: "Trade Exchange Finder",
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: "Trade Exchange Finder",
-    url: "/",
     title: "Trade Exchange Finder",
     description: "Compare business barter exchanges. Unpublished figures stay blank.",
   },
   twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
 };
 
+export const revalidate = 300;
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  await connection();
-  const headerList = await headers();
-  if (headerList.get("x-count-view") === "1") {
-    const pathname = headerList.get("x-pathname");
-    const referrer = headerList.get("referer");
-    after(() => recordPageview(pathname, referrer));
-  }
   const sponsor = await getBarSponsor();
   const bar = {
     slug: sponsor?.slug || HOUSE_SPONSOR_SLUG,

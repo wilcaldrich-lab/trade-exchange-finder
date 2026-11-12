@@ -1,11 +1,10 @@
-import { readFileSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import path from "path";
-import { Pool } from "pg";
+import { Pool, type PoolConfig } from "pg";
 import { scrubSecrets } from "@/lib/format";
 
 type GlobalDb = {
   pool?: Pool;
-  schema?: Promise<void> | null;
 };
 
 const globalDb = globalThis as typeof globalThis & { __tefDb?: GlobalDb };
@@ -39,55 +38,69 @@ function attachPool(pool: Pool) {
     });
 }
 
+/** Drop sslmode from the URL and require a verified certificate when TLS is requested. */
+export function poolConfig(connectionString: string, max: number): PoolConfig {
+  try {
+    const parsed = new URL(connectionString);
+    const mode = (parsed.searchParams.get("sslmode") || "").toLowerCase();
+    if (mode && mode !== "disable") {
+      parsed.searchParams.delete("sslmode");
+      return { connectionString: parsed.toString(), max, ssl: { rejectUnauthorized: true } };
+    }
+  } catch {
+    // Keep strings pg accepts that the URL parser does not.
+  }
+  return { connectionString, max };
+}
+
 export function getPool(): Pool {
   const url = databaseUrl();
   if (!url) throw new Error("DATABASE_URL or POSTGRES_URL is not set");
   const current = state();
   if (!current.pool) {
-    current.pool = new Pool({ connectionString: url, max: 5 });
+    current.pool = new Pool(poolConfig(url, 5));
     attachPool(current.pool);
   }
   return current.pool;
 }
 
-export function schemaSql(): string {
-  return readFileSync(path.join(process.cwd(), "db/migrations/001_init.sql"), "utf8");
+export function migrationFiles(): string[] {
+  const dir = path.join(process.cwd(), "db/migrations");
+  return readdirSync(dir)
+    .filter((name) => name.endsWith(".sql"))
+    .sort();
 }
 
 export async function migrate(connectionString = migrationUrl()): Promise<void> {
   if (!connectionString) throw new Error("DATABASE_URL or POSTGRES_URL is not set");
-  const pool = new Pool({ connectionString, max: 1 });
+  const pool = new Pool(poolConfig(connectionString, 1));
   try {
-    await pool.query(schemaSql());
+    await pool.query(`CREATE TABLE IF NOT EXISTS schema_migrations (
+      id TEXT PRIMARY KEY,
+      applied_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )`);
+    for (const file of migrationFiles()) {
+      const id = file.replace(/\.sql$/, "");
+      const existing = await pool.query("SELECT 1 FROM schema_migrations WHERE id = $1", [id]);
+      if (existing.rowCount) continue;
+      const sql = readFileSync(path.join(process.cwd(), "db/migrations", file), "utf8");
+      await pool.query(sql);
+      await pool.query("INSERT INTO schema_migrations (id) VALUES ($1) ON CONFLICT (id) DO NOTHING", [id]);
+    }
   } finally {
     await pool.end();
   }
 }
 
-export async function ensureSchema(): Promise<void> {
-  const current = state();
-  if (!current.schema) {
-    current.schema = getPool()
-      .query(schemaSql())
-      .then(() => undefined)
-      .catch((error: unknown) => {
-        current.schema = null;
-        throw error;
-      });
-  }
-  await current.schema;
-}
-
 export async function query<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
-  await ensureSchema();
   const result = await getPool().query(text, params);
   return result.rows as T[];
 }
 
 export async function migrateIfConfigured(): Promise<void> {
-  if (!databaseUrl()) return;
+  if (!migrationUrl()) return;
   try {
-    await ensureSchema();
+    await migrate();
   } catch (error) {
     console.error(scrubSecrets(error instanceof Error ? error.message : String(error)));
   }

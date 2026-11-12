@@ -7,6 +7,21 @@ const REDIRECT_HOSTS = new Set([
   "www.tradeexchangefinder.com",
 ]);
 
+const BOT_UA = /bot|crawl|spider|curl|wget|python|headless|preview/i;
+
+export function shouldCountView(input: {
+  pathname: string;
+  dest: string | null;
+  isRsc: boolean;
+  prefetch: boolean;
+  userAgent: string;
+}): boolean {
+  if (input.pathname.startsWith("/api") || input.pathname.startsWith("/go")) return false;
+  if (input.prefetch) return false;
+  if (BOT_UA.test(input.userAgent)) return false;
+  return input.dest === "document" || input.isRsc;
+}
+
 export function proxy(request: NextRequest) {
   const host = (request.headers.get("host") || "").toLowerCase().split(":")[0];
   if (REDIRECT_HOSTS.has(host)) {
@@ -17,7 +32,6 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const path = request.nextUrl.pathname;
   requestHeaders.set("x-pathname", path);
-  const isPage = !path.startsWith("/api") && !path.startsWith("/go");
   const purpose = `${request.headers.get("purpose") || ""} ${request.headers.get("sec-purpose") || ""}`.toLowerCase();
   const isPrefetch =
     request.headers.get("next-router-prefetch") === "1" ||
@@ -25,11 +39,19 @@ export function proxy(request: NextRequest) {
     purpose.includes("prefetch");
   const dest = request.headers.get("sec-fetch-dest");
   const isRsc = request.headers.get("rsc") === "1";
-  const count = isPage && !isPrefetch && (dest === "document" || dest === null || isRsc);
+  const count = shouldCountView({
+    pathname: path,
+    dest,
+    isRsc,
+    prefetch: isPrefetch,
+    userAgent: request.headers.get("user-agent") || "",
+  });
   requestHeaders.set("x-count-view", count ? "1" : "0");
   return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|.*\\.(?:png|svg|jpg|jpeg|gif|webp|ico)$).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|.*\\.(?:png|svg|jpg|jpeg|gif|webp|avif|ico|js|css|map|json|txt|xml|webmanifest|woff|woff2)$).*)",
+  ],
 };

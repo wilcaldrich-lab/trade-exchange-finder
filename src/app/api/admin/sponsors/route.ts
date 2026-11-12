@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { adminDenied } from "@/lib/admin";
 import { databaseUrl, logError, query } from "@/lib/db";
@@ -85,6 +86,7 @@ export async function POST(request: Request) {
           ends,
         ],
       );
+      revalidateTag("sponsors", { expire: 0 });
       return NextResponse.json({ sponsor: rows[0] ? mapSponsor(rows[0]) : null }, { status: 201 });
     }
 
@@ -112,6 +114,7 @@ export async function POST(request: Request) {
       values,
     );
     if (!rows[0]) return NextResponse.json({ error: "Sponsor not found." }, { status: 404 });
+    revalidateTag("sponsors", { expire: 0 });
     return NextResponse.json({ sponsor: mapSponsor(rows[0]) });
   } catch (error) {
     if (typeof error === "object" && error && "code" in error && (error as { code: string }).code === "23505") {

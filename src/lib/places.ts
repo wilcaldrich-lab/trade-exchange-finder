@@ -66,17 +66,42 @@ const COUNTRY_NAMES: Record<string, string> = {
   BE: "Belgium",
 };
 
-export function stateSlug(state: string | null | undefined): string {
-  if (!state) return "";
-  return slugify(state);
+/** Non-US regions in the directory, including postal codes and the published name. */
+const REGION_NAMES: Record<string, string> = {
+  "CA:ON": "Ontario",
+  "CA:ONTARIO": "Ontario",
+  "TH:BANGKOK": "Bangkok",
+  "GB:NORTH YORKSHIRE": "North Yorkshire",
+  "GB:DORSET": "Dorset",
+  "IT:LOMBARDY": "Lombardy",
+  "IT:SARDINIA": "Sardinia",
+  "BR:SP": "Sao Paulo",
+  "BR:SAO PAULO": "Sao Paulo",
+  "BR:MG": "Minas Gerais",
+  "BR:MINAS GERAIS": "Minas Gerais",
+  "BE:BRUSSELS": "Brussels",
+};
+
+export function stateName(state: string | null | undefined, country: string | null | undefined): string | null {
+  if (!state || !state.trim()) return null;
+  const countryCode = (country || "").toUpperCase();
+  const code = state.trim().toUpperCase();
+  const folded = code.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+  if (countryCode === "US") {
+    if (US_STATES[code]) return US_STATES[code];
+    const byName = Object.entries(US_STATES).find(([, name]) => name.toUpperCase() === folded);
+    if (byName) return byName[1];
+  }
+  return REGION_NAMES[`${countryCode}:${code}`] || REGION_NAMES[`${countryCode}:${folded}`] || state.trim();
+}
+
+export function stateSlug(state: string | null | undefined, country?: string | null): string {
+  const name = stateName(state, country);
+  return name ? slugify(name) : "";
 }
 
 export function stateLabel(state: string | null | undefined, country: string | null | undefined): string {
-  if (!state) return NOT_PUBLISHED;
-  if ((country || "").toUpperCase() === "US" && US_STATES[state.toUpperCase()]) {
-    return US_STATES[state.toUpperCase()];
-  }
-  return state;
+  return stateName(state, country) || NOT_PUBLISHED;
 }
 
 export function countryName(code: string | null | undefined): string {

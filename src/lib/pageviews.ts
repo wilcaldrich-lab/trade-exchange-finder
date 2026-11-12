@@ -2,6 +2,7 @@ import { databaseUrl, logError, query } from "@/lib/db";
 import { cleanPath, cleanReferrer } from "@/lib/urls";
 
 export async function recordPageview(pathname: string | null, referrer: string | null): Promise<void> {
+  if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production") return;
   if (!databaseUrl()) return;
   const path = cleanPath(pathname);
   if (path.startsWith("/api") || path.startsWith("/go") || path.startsWith("/_next")) return;

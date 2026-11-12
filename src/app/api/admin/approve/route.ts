@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { adminDenied } from "@/lib/admin";
 import { databaseUrl, logError } from "@/lib/db";
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Send an id and action of approve or reject." }, { status: 400 });
     }
     const result = await reviewSubmission(id, action);
+    if (result.status === "approved") revalidateTag("exchanges", { expire: 0 });
     return NextResponse.json({ ok: true, id, ...result });
   } catch (error) {
     if (error instanceof ReviewError) return NextResponse.json({ error: error.message }, { status: error.status });

@@ -68,7 +68,7 @@ export function matchesQuery(exchange: Exchange, query: string): boolean {
 
 function stateOf(exchange: ExchangeView | Exchange): string {
   if ("state_slug" in exchange && exchange.state_slug) return exchange.state_slug;
-  return stateSlug(exchange.state_region);
+  return stateSlug(exchange.state_region, exchange.country);
 }
 
 function countryOf(exchange: ExchangeView | Exchange): string {

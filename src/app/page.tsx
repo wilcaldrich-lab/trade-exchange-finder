@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
+import { CountView } from "@/components/CountView";
 import { SignupForm } from "@/components/SignupForm";
 import { DirectoryPage } from "@/components/DirectoryPage";
 import { JsonLd } from "@/components/JsonLd";
 import { siteUrl } from "@/lib/site";
 
+const homeTitle = "Trade Exchange Finder — business barter exchanges";
+const homeDescription =
+  "Find a business barter exchange. Search by name, city, or state, and filter by network and whether fees are published.";
+
 export const metadata: Metadata = {
-  title: { absolute: "Trade Exchange Finder — business barter exchanges" },
-  description:
-    "Find a business barter exchange. Search by name, city, or state, and filter by network and whether fees are published.",
+  title: { absolute: homeTitle },
+  description: homeDescription,
   alternates: { canonical: "/" },
+  openGraph: { title: homeTitle, description: homeDescription, url: "/" },
 };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -17,6 +22,7 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
   const origin = siteUrl();
   return (
     <>
+      <CountView />
       <JsonLd
         data={{
           "@context": "https://schema.org",

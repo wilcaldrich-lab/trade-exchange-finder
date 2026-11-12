@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CountView } from "@/components/CountView";
 import { DirectoryPage } from "@/components/DirectoryPage";
 import { getExchanges } from "@/lib/catalog";
 import { countryGroups } from "@/lib/directory";
@@ -19,10 +20,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { country } = await params;
   const group = await loadCountry(country);
   if (!group) return { title: "Country not listed" };
+  const title = `Barter exchanges in ${group.label}`;
+  const description = `Business trade exchanges listed in ${group.label}. Fees appear only when an exchange published them.`;
+  const path = `/country/${group.slug}`;
   return {
-    title: `Barter exchanges in ${group.label}`,
-    description: `Business trade exchanges listed in ${group.label}. Fees appear only when an exchange published them.`,
-    alternates: { canonical: `/country/${group.slug}` },
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: { title, description, url: path },
   };
 }
 
@@ -31,12 +36,15 @@ export default async function CountryPage({ params, searchParams }: Params) {
   const group = await loadCountry(country);
   if (!group) notFound();
   return (
-    <DirectoryPage
-      searchParams={searchParams}
-      heading={`Barter exchanges in ${group.label}`}
-      lede={`${group.count} listed ${group.count === 1 ? "exchange" : "exchanges"} in ${group.label}.`}
-      canonical={`/country/${group.slug}`}
-      lockCountry={group.slug}
-    />
+    <>
+      <CountView />
+      <DirectoryPage
+        searchParams={searchParams}
+        heading={`Barter exchanges in ${group.label}`}
+        lede={`${group.count} listed ${group.count === 1 ? "exchange" : "exchanges"} in ${group.label}.`}
+        canonical={`/country/${group.slug}`}
+        lockCountry={group.slug}
+      />
+    </>
   );
 }

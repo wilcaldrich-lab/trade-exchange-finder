@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import path from "path";
 import { Pool } from "pg";
 import { exchangesFromUnknown } from "../src/lib/exchange";
-import { migrate, migrationUrl } from "../src/lib/db";
+import { migrate, migrationUrl, poolConfig } from "../src/lib/db";
 
 async function main() {
   const url = migrationUrl();
@@ -10,7 +10,7 @@ async function main() {
   await migrate(url);
   const parsed = JSON.parse(readFileSync(path.join(process.cwd(), "data/exchanges.json"), "utf8")) as unknown;
   const exchanges = exchangesFromUnknown(parsed);
-  const pool = new Pool({ connectionString: url, max: 1 });
+  const pool = new Pool(poolConfig(url, 1));
   const client = await pool.connect();
   try {
     await client.query("BEGIN");

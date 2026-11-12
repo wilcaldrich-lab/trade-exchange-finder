@@ -1,7 +1,6 @@
 import { readFileSync } from "fs";
 import path from "path";
-import { cache } from "react";
-import { connection } from "next/server";
+import { unstable_cache } from "next/cache";
 import { exchangesFromUnknown, toExchange, type Exchange } from "@/lib/exchange";
 import { databaseUrl, logError, query } from "@/lib/db";
 
@@ -15,21 +14,28 @@ export function loadSeedExchanges(): Exchange[] {
   return seedCache;
 }
 
-export const getExchanges = cache(async function getExchanges(): Promise<Exchange[]> {
-  await connection();
-  if (!databaseUrl()) return loadSeedExchanges();
-  try {
+const readExchanges = unstable_cache(
+  async (): Promise<Exchange[]> => {
     const rows = await query<Record<string, unknown>>("SELECT * FROM entries ORDER BY name ASC");
     const exchanges = rows
       .map((row) => toExchange(row))
       .filter((row): row is Exchange => row !== null);
     if (!exchanges.length) return loadSeedExchanges();
     return exchanges;
+  },
+  ["exchanges"],
+  { revalidate: 300, tags: ["exchanges"] },
+);
+
+export async function getExchanges(): Promise<Exchange[]> {
+  if (!databaseUrl()) return loadSeedExchanges();
+  try {
+    return await readExchanges();
   } catch (error) {
     await logError(error, "getExchanges");
     return loadSeedExchanges();
   }
-});
+}
 
 export async function getExchange(slug: string): Promise<Exchange | null> {
   const exchanges = await getExchanges();

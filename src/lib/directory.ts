@@ -19,7 +19,7 @@ export function stateGroups(list: Exchange[]): Map<string, StateGroup> {
   const buckets = new Map<string, Exchange[]>();
   for (const exchange of list) {
     if (!exchange.state_region) continue;
-    const id = `${(exchange.country || "xx").toLowerCase()}:${stateSlug(exchange.state_region)}`;
+    const id = `${(exchange.country || "xx").toLowerCase()}:${stateSlug(exchange.state_region, exchange.country)}`;
     const current = buckets.get(id) || [];
     current.push(exchange);
     buckets.set(id, current);
@@ -31,7 +31,7 @@ export function stateGroups(list: Exchange[]): Map<string, StateGroup> {
     const exchanges = buckets.get(id) || [];
     const first = exchanges[0];
     if (!first?.state_region) continue;
-    const base = stateSlug(first.state_region);
+    const base = stateSlug(first.state_region, first.country);
     let slug = base;
     if (used.has(slug)) slug = `${(first.country || "xx").toLowerCase()}-${base}`;
     used.add(slug);
@@ -44,6 +44,21 @@ export function stateGroups(list: Exchange[]): Map<string, StateGroup> {
     });
   }
   return groups;
+}
+
+export function resolveStateSlug(
+  param: string,
+  groups: Map<string, StateGroup>,
+): { group: StateGroup | null; redirectTo: string | null } {
+  const key = param.toLowerCase();
+  const direct = groups.get(key) || null;
+  if (direct) return { group: direct, redirectTo: null };
+  if (!/^[a-z]{2}$/i.test(param)) return { group: null, redirectTo: null };
+  const code = param.toUpperCase();
+  const matches = [...groups.values()].filter((group) => group.stateRegion.toUpperCase() === code);
+  const match = matches.find((group) => (group.country || "").toUpperCase() === "US") || matches[0] || null;
+  if (!match || match.slug === key) return { group: null, redirectTo: null };
+  return { group: null, redirectTo: `/state/${match.slug}` };
 }
 
 export function countryGroups(list: Exchange[]): Map<string, Exchange[]> {

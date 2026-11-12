@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { CountView } from "@/components/CountView";
 import { JsonLd } from "@/components/JsonLd";
 import { SignupForm } from "@/components/SignupForm";
 import { getExchange } from "@/lib/catalog";
 import type { Exchange } from "@/lib/exchange";
 import { NOT_PUBLISHED, formatCashFee, formatCount, formatDate, published } from "@/lib/format";
+import { telHref } from "@/lib/phone";
 import { countryName, locationLine, stateLabel } from "@/lib/places";
 import { absoluteUrl } from "@/lib/site";
 import { isSafeHttpUrl, websiteLabel } from "@/lib/urls";
@@ -25,11 +27,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const exchange = await getExchange(slug);
   if (!exchange) return { title: "Exchange not listed" };
+  const description = summary(exchange);
+  const path = `/exchange/${exchange.slug}`;
+  const image = `${path}/opengraph-image`;
   return {
     title: exchange.name,
-    description: summary(exchange),
-    alternates: { canonical: `/exchange/${exchange.slug}` },
-    openGraph: { title: exchange.name, description: summary(exchange), url: `/exchange/${exchange.slug}` },
+    description,
+    alternates: { canonical: path },
+    openGraph: { title: exchange.name, description, url: path, images: [image] },
+    twitter: { card: "summary_large_image", title: exchange.name, description, images: [image] },
   };
 }
 
@@ -69,6 +75,7 @@ export default async function ExchangePage({ params }: Params) {
 
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-6">
+      <CountView />
       <JsonLd data={jsonLd} />
       <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-brass">
         <Link href="/" className="hover:text-ink">Directory</Link>
@@ -103,7 +110,7 @@ export default async function ExchangePage({ params }: Params) {
         <Fact label="State or region">{exchange.state_region ? stateLabel(exchange.state_region, exchange.country) : NOT_PUBLISHED}</Fact>
         <Fact label="Country">{exchange.country ? `${countryName(exchange.country)} (${exchange.country})` : NOT_PUBLISHED}</Fact>
         <Fact label="Phone">
-          {exchange.phone ? <a href={`tel:${exchange.phone.replace(/[^\d+]/g, "")}`}>{exchange.phone}</a> : NOT_PUBLISHED}
+          {exchange.phone ? <a href={telHref(exchange.phone, exchange.country)}>{exchange.phone}</a> : NOT_PUBLISHED}
         </Fact>
         <Fact label="Email">
           {exchange.email ? <a href={`mailto:${exchange.email}`}>{exchange.email}</a> : NOT_PUBLISHED}

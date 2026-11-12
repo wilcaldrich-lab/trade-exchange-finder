@@ -21,6 +21,7 @@ export function Footer() {
             <li><Link href="/guide" className="underline decoration-line underline-offset-4">How business barter works</Link></li>
             <li><Link href="/submit" className="underline decoration-line underline-offset-4">Submit a listing</Link></li>
             <li><Link href="/sponsor" className="underline decoration-line underline-offset-4">Sponsor</Link></li>
+            <li><Link href="/privacy" className="underline decoration-line underline-offset-4">Privacy</Link></li>
           </ul>
           <p className="mt-4 text-muted">
             Figures stay blank until an exchange publishes them. Canonical site: barterexchanges.org.
