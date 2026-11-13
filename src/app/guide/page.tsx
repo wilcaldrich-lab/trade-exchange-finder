@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CountView } from "@/components/CountView";
 import { JsonLd } from "@/components/JsonLd";
 
+const title = "How business barter works";
+const description =
+  "A plain explanation of business trade exchanges: trade credits, published fees, IRTA, NATE, and what to ask before joining.";
+
 export const metadata: Metadata = {
-  title: "How business barter works",
-  description:
-    "A plain explanation of business trade exchanges: trade credits, published fees, IRTA, NATE, and what to ask before joining.",
+  title,
+  description,
   alternates: { canonical: "/guide" },
+  openGraph: { title, description, url: "/guide" },
 };
 
 export default function GuidePage() {
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-6">
+      <CountView />
       <JsonLd
         data={{
           "@context": "https://schema.org",

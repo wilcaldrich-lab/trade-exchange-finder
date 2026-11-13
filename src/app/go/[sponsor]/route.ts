@@ -7,6 +7,7 @@ import { cleanReferrer, safeRedirectTarget } from "@/lib/urls";
 type Params = { params: Promise<{ sponsor: string }> };
 
 function appOrigin(request: Request): string {
+  if (process.env.VERCEL_ENV === "production") return siteUrl();
   const url = new URL(request.url);
   const forwarded = (request.headers.get("x-forwarded-host") || request.headers.get("host") || url.host)
     .split(",")[0]

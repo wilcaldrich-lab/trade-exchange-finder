@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { databaseUrl, logError, query } from "@/lib/db";
 import { isSafeHttpUrl } from "@/lib/urls";
 
@@ -52,9 +53,8 @@ const ACTIVE_WINDOW = `
   AND (ends_on IS NULL OR ends_on >= CURRENT_DATE)
 `;
 
-export async function getBarSponsor(): Promise<Sponsor | null> {
-  if (!databaseUrl()) return null;
-  try {
+const readBarSponsor = unstable_cache(
+  async (): Promise<Sponsor | null> => {
     const rows = await query<Record<string, unknown>>(
       `SELECT * FROM sponsor_weeks
        WHERE placement = 'bar' AND ${ACTIVE_WINDOW}
@@ -62,17 +62,23 @@ export async function getBarSponsor(): Promise<Sponsor | null> {
        LIMIT 1`,
     );
     return rows[0] ? mapSponsor(rows[0]) : null;
+  },
+  ["bar-sponsor"],
+  { revalidate: 300, tags: ["sponsors"] },
+);
+
+export async function getBarSponsor(): Promise<Sponsor | null> {
+  if (!databaseUrl()) return null;
+  try {
+    return await readBarSponsor();
   } catch (error) {
     await logError(error, "getBarSponsor");
     return null;
   }
 }
 
-export async function getStateSponsor(keys: string[]): Promise<Sponsor | null> {
-  if (!databaseUrl()) return null;
-  const normalized = [...new Set(keys.map((key) => key.trim().toLowerCase()).filter(Boolean))];
-  if (!normalized.length) return null;
-  try {
+const readStateSponsor = unstable_cache(
+  async (normalized: string[]): Promise<Sponsor | null> => {
     const rows = await query<Record<string, unknown>>(
       `SELECT * FROM sponsor_weeks
        WHERE placement = 'state_feature' AND ${ACTIVE_WINDOW}
@@ -82,15 +88,25 @@ export async function getStateSponsor(keys: string[]): Promise<Sponsor | null> {
       [normalized],
     );
     return rows[0] ? mapSponsor(rows[0]) : null;
+  },
+  ["state-sponsor"],
+  { revalidate: 300, tags: ["sponsors"] },
+);
+
+export async function getStateSponsor(keys: string[]): Promise<Sponsor | null> {
+  if (!databaseUrl()) return null;
+  const normalized = [...new Set(keys.map((key) => key.trim().toLowerCase()).filter(Boolean))].sort();
+  if (!normalized.length) return null;
+  try {
+    return await readStateSponsor(normalized);
   } catch (error) {
     await logError(error, "getStateSponsor");
     return null;
   }
 }
 
-export async function getNewsletterSponsor(): Promise<Sponsor | null> {
-  if (!databaseUrl()) return null;
-  try {
+const readNewsletterSponsor = unstable_cache(
+  async (): Promise<Sponsor | null> => {
     const rows = await query<Record<string, unknown>>(
       `SELECT * FROM sponsor_weeks
        WHERE placement = 'newsletter' AND ${ACTIVE_WINDOW}
@@ -99,16 +115,24 @@ export async function getNewsletterSponsor(): Promise<Sponsor | null> {
     );
     const sponsor = rows[0] ? mapSponsor(rows[0]) : null;
     if (sponsor) return sponsor;
-    return getBarSponsor();
+    return readBarSponsor();
+  },
+  ["newsletter-sponsor"],
+  { revalidate: 300, tags: ["sponsors"] },
+);
+
+export async function getNewsletterSponsor(): Promise<Sponsor | null> {
+  if (!databaseUrl()) return null;
+  try {
+    return await readNewsletterSponsor();
   } catch (error) {
     await logError(error, "getNewsletterSponsor");
     return null;
   }
 }
 
-export async function getSponsorBySlug(slug: string): Promise<Sponsor | null> {
-  if (!databaseUrl()) return null;
-  try {
+const readSponsorBySlug = unstable_cache(
+  async (slug: string): Promise<Sponsor | null> => {
     const rows = await query<Record<string, unknown>>(
       `SELECT * FROM sponsor_weeks
        WHERE slug = $1 AND ${ACTIVE_WINDOW}
@@ -116,6 +140,15 @@ export async function getSponsorBySlug(slug: string): Promise<Sponsor | null> {
       [slug],
     );
     return rows[0] ? mapSponsor(rows[0]) : null;
+  },
+  ["sponsor-by-slug"],
+  { revalidate: 300, tags: ["sponsors"] },
+);
+
+export async function getSponsorBySlug(slug: string): Promise<Sponsor | null> {
+  if (!databaseUrl()) return null;
+  try {
+    return await readSponsorBySlug(slug);
   } catch (error) {
     await logError(error, `/go/${slug}`);
     return null;
@@ -132,6 +165,7 @@ export function validSponsorUrl(value: string): boolean {
 }
 
 export async function logSponsorClick(sponsor: string, referrer: string | null): Promise<void> {
+  if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production") return;
   if (!databaseUrl()) return;
   try {
     await query("INSERT INTO sponsor_clicks (sponsor, path, referrer) VALUES ($1, $2, $3)", [

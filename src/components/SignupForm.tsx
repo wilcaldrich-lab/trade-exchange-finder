@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
 export function SignupForm({ source }: { source: string }) {
@@ -20,13 +21,25 @@ export function SignupForm({ source }: { source: string }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, source, company_fax: fax }),
       });
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        warning?: string;
+        mailed?: boolean;
+        confirmed?: boolean;
+      };
       if (!response.ok) {
         setError(data.error || "Could not save that email.");
         return;
       }
-      setMessage("You're on the list.");
-      setEmail("");
+      if (data.confirmed) {
+        setMessage("You're already on the list.");
+        setEmail("");
+      } else if (data.mailed === false) {
+        setError(data.warning || "Saved, but the confirmation email could not be sent.");
+      } else {
+        setMessage("Check your email to confirm.");
+        setEmail("");
+      }
     } catch {
       setError("Could not save that email.");
     } finally {
@@ -59,6 +72,9 @@ export function SignupForm({ source }: { source: string }) {
           {pending ? "Saving…" : "Sign up"}
         </button>
       </div>
+      <p className="text-xs text-muted">
+        Unsubscribe anytime. See our <Link href="/privacy" className="underline">privacy policy</Link>.
+      </p>
       <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />

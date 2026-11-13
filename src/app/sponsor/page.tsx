@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { CountView } from "@/components/CountView";
 import { SponsorForm } from "@/components/SponsorForm";
 import { getLiveStats } from "@/lib/stats";
 
+const title = "Sponsor the directory";
+const description = "Featured state listing at $49 a month, or a newsletter slot at $25 a week. No checkout. Write to us.";
+
 export const metadata: Metadata = {
-  title: "Sponsor the directory",
-  description: "Featured state listing at $49 a month, or a newsletter slot at $25 a week. No checkout. Write to us.",
+  title,
+  description,
   alternates: { canonical: "/sponsor" },
+  openGraph: { title, description, url: "/sponsor" },
 };
 
 function Stat({ label, value }: { label: string; value: number }) {
@@ -21,6 +26,7 @@ export default async function SponsorPage() {
   const stats = await getLiveStats();
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-6">
+      <CountView />
       <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-brass">Sponsor</p>
       <h1 className="mt-2 font-display text-4xl leading-none tracking-tight sm:text-5xl">Put your exchange in front of owners who are already looking</h1>
       <p className="mt-3 max-w-2xl text-muted">

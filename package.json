@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "tsx --test tests/*.test.ts",
     "db:migrate": "tsx scripts/migrate.ts",
-    "db:seed": "tsx scripts/seed.ts"
+    "db:seed": "tsx scripts/seed.ts",
+    "predeploy": "node scripts/predeploy.mjs"
   },
   "dependencies": {
     "@vercel/functions": "^3.1.4",

@@ -1,6 +1,6 @@
 import type { PoolClient } from "pg";
 import { toExchange, type Exchange } from "@/lib/exchange";
-import { ensureSchema, getPool } from "@/lib/db";
+import { getPool } from "@/lib/db";
 import { slugify } from "@/lib/slug";
 import { isSafeHttpUrl } from "@/lib/urls";
 
@@ -124,10 +124,6 @@ async function updateEntry(client: PoolClient, slug: string, patch: Partial<Exch
     values.push(value);
     assignments.push(`${key} = $${values.length}`);
   }
-  if (patch.slug && patch.slug !== slug) {
-    values.push(patch.slug);
-    assignments.push(`slug = $${values.length}`);
-  }
   assignments.push("last_checked = CURRENT_DATE");
   assignments.push("updated_at = now()");
   values.push(slug);
@@ -143,8 +139,12 @@ export class ReviewError extends Error {
   }
 }
 
+export function correctionChangesSlug(payload: Record<string, unknown>, exchangeSlug: string): boolean {
+  if (typeof payload.slug !== "string" || !payload.slug.trim()) return false;
+  return slugify(payload.slug) !== exchangeSlug;
+}
+
 export async function reviewSubmission(id: number, action: "approve" | "reject"): Promise<{ status: string }> {
-  await ensureSchema();
   const client = await getPool().connect();
   try {
     await client.query("BEGIN");
@@ -171,7 +171,10 @@ export async function reviewSubmission(id: number, action: "approve" | "reject")
     } else {
       const exchangeSlug = typeof row.exchange_slug === "string" ? row.exchange_slug : "";
       if (!exchangeSlug) throw new ReviewError(400, "Correction is missing the exchange.");
-      const listing = normalizeListing({ ...payload, slug: payload.slug || exchangeSlug, name: payload.name || exchangeSlug }, exchangeSlug);
+      if (correctionChangesSlug(payload, exchangeSlug)) {
+        throw new ReviewError(400, "Corrections cannot change the listing URL.");
+      }
+      const listing = normalizeListing({ ...payload, slug: exchangeSlug, name: payload.name || exchangeSlug }, exchangeSlug);
       if ("error" in listing) throw new ReviewError(400, listing.error);
       const patch: Partial<Exchange> = {};
       for (const key of FIELDS) {
@@ -179,7 +182,6 @@ export async function reviewSubmission(id: number, action: "approve" | "reject")
           patch[key] = listing[key] as never;
         }
       }
-      if (typeof payload.slug === "string" && payload.slug.trim()) patch.slug = listing.slug;
       const updated = await updateEntry(client, exchangeSlug, patch);
       if (!updated) throw new ReviewError(404, "The exchange to correct is not in the directory.");
     }
