@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 
-const inputClass = "h-12 w-full rounded-md border border-line bg-card px-3 text-base";
+const inputClass = "h-12 w-full border border-line bg-card px-3 text-base";
 
 export function SponsorForm() {
   const [fax, setFax] = useState("");
@@ -50,7 +50,7 @@ export function SponsorForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
-      <h2 className="font-display text-3xl">Get in touch</h2>
+      <h2 className="font-display text-3xl leading-tight">Get in touch</h2>
       <p className="text-sm text-muted">No checkout. Tell us which offer you want and where the exchange is based.</p>
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="text-sm font-bold">
@@ -77,13 +77,13 @@ export function SponsorForm() {
       </label>
       <label className="text-sm font-bold">
         Message
-        <textarea name="message" required rows={5} className="mt-1 w-full rounded-md border border-line bg-card px-3 py-2 font-normal" />
+        <textarea name="message" required rows={5} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
       <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
-      <button type="submit" disabled={pending} className="h-12 rounded-md bg-pine text-sm font-bold text-paper disabled:opacity-60">
+      <button type="submit" disabled={pending} className="h-12 bg-pine text-sm text-paper disabled:opacity-60">
         {pending ? "Sending…" : "Send"}
       </button>
       {message ? <p className="text-sm text-pine">{message}</p> : null}

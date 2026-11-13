@@ -11,12 +11,12 @@ function page(title: string, message: string, status: number) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title}</title>
 </head>
-<body style="margin:0;background:#080a10;color:#e8eef7;font-family:Georgia,serif">
+<body style="margin:0;background:#05060a;color:#e9f6ef;font-family:Georgia,serif;background-image:linear-gradient(rgba(57,240,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(57,240,255,.05) 1px,transparent 1px);background-size:40px 40px">
   <main style="max-width:36rem;margin:0 auto;padding:4rem 1rem">
-    <p style="letter-spacing:.16em;text-transform:uppercase;color:#f0d24a;font-size:.7rem">Trade Exchange Finder</p>
-    <h1 style="font-size:2.4rem;line-height:1;margin:.5rem 0 0">${title}</h1>
-    <p style="color:#a7b3c7;line-height:1.5">${message}</p>
-    <p><a href="${siteUrl()}/" style="color:#2ee0cc">Back to the directory</a></p>
+    <p style="letter-spacing:.16em;text-transform:uppercase;color:#39f0ff;font-size:.7rem;font-family:ui-monospace,monospace">[ Trade Exchange Finder ]</p>
+    <h1 style="font-size:2.4rem;line-height:1.15;margin:.5rem 0 0">${title}</h1>
+    <p style="color:#b7c6ce;line-height:1.5">${message}</p>
+    <p><a href="${siteUrl()}/" style="color:#b6ff3c">Back to the directory</a></p>
   </main>
 </body>
 </html>`;

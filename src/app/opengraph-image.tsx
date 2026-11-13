@@ -14,11 +14,11 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#080a10",
+          background: "#05060a",
           backgroundImage:
-            "linear-gradient(rgba(46, 224, 208, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(46, 224, 208, 0.08) 1px, transparent 1px)",
+            "linear-gradient(rgba(57, 240, 255, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(57, 240, 255, 0.09) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
-          color: "#e8eef7",
+          color: "#e9f6ef",
           padding: "72px",
         }}
       >
@@ -27,25 +27,28 @@ export default function OpenGraphImage() {
             style={{
               width: 64,
               height: 64,
-              border: "3px solid #2ee0cc",
-              color: "#2ee0cc",
+              border: "3px solid #b6ff3c",
+              color: "#b6ff3c",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 32,
+              fontSize: 28,
             }}
           >
             Bx
           </div>
-          <div style={{ display: "flex", fontSize: 22, letterSpacing: 4, textTransform: "uppercase", color: "#f0d24a" }}>
+          <div style={{ display: "flex", fontSize: 22, letterSpacing: 4, textTransform: "uppercase", color: "#39f0ff" }}>
             Trade exchange finder
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ fontSize: 76, lineHeight: 1, maxWidth: 900, color: "#e8eef7" }}>Find a business barter exchange</div>
-          <div style={{ fontSize: 30, color: "#a7b3c7" }}>Published fees only. Missing figures stay blank.</div>
+          <div style={{ display: "flex", fontSize: 22, letterSpacing: 3, textTransform: "uppercase", color: "#ff3d9a" }}>
+            [ Trade floor ]
+          </div>
+          <div style={{ fontSize: 76, lineHeight: 1.05, maxWidth: 980, color: "#e9f6ef" }}>Find a business barter exchange</div>
+          <div style={{ fontSize: 30, color: "#b7c6ce" }}>Published fees only. Missing figures stay blank.</div>
         </div>
-        <div style={{ fontSize: 26, color: "#2ee0cc" }}>barterexchanges.org</div>
+        <div style={{ fontSize: 26, color: "#b6ff3c" }}>barterexchanges.org</div>
       </div>
     ),
     { ...size },

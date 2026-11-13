@@ -45,8 +45,9 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
         showBrowse
       />
       <section className="mx-auto w-full max-w-5xl px-4 pb-10">
-        <div className="rounded-md border border-line bg-card px-4 py-4">
-          <h2 className="font-display text-2xl">Get a short note</h2>
+        <div className="terminal px-4 py-4 sm:px-5">
+          <p className="kicker">Join the network</p>
+          <h2 className="mt-1 font-display text-2xl leading-tight">Get a short note</h2>
           <p className="mt-1 text-sm text-muted">When a listing is added or a published figure changes.</p>
           <div className="mt-3 max-w-md">
             <SignupForm source="home" />

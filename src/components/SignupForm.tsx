@@ -49,25 +49,30 @@ export function SignupForm({ source }: { source: string }) {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-2">
-      <label htmlFor={`email-${source}`} className="text-sm font-bold">
+      <label htmlFor={`email-${source}`} className="kicker">
         Email
       </label>
       <div className="flex flex-col gap-2 sm:flex-row">
-        <input
-          id={`email-${source}`}
-          type="email"
-          required
-          autoComplete="email"
-          inputMode="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="you@yourbusiness.com"
-          className="h-12 min-w-0 flex-1 rounded-md border border-line bg-card px-3 text-base"
-        />
+        <div className="prompt min-w-0 flex-1">
+          <span className="shrink-0 pl-3 font-mono text-pine" aria-hidden="true">
+            &gt;
+          </span>
+          <input
+            id={`email-${source}`}
+            type="email"
+            required
+            autoComplete="email"
+            inputMode="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="you@yourbusiness.com"
+            className="h-12 min-w-0 flex-1 bg-transparent px-2 font-mono text-base"
+          />
+        </div>
         <button
           type="submit"
           disabled={pending}
-          className="h-12 rounded-md bg-pine px-4 text-sm font-bold text-paper disabled:opacity-60"
+          className="h-12 bg-pine px-4 text-sm text-paper disabled:opacity-60"
         >
           {pending ? "Saving…" : "Sign up"}
         </button>

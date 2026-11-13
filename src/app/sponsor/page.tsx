@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-md border border-line bg-card px-4 py-3">
-      <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-brass">{label}</p>
-      <p className="mt-1 font-display text-4xl tabular-nums">{value.toLocaleString("en-US")}</p>
+    <div className="market-card px-4 py-3">
+      <p className="term-label">{label}</p>
+      <p className="mt-1 font-mono text-4xl text-pine tabular-nums">{value.toLocaleString("en-US")}</p>
     </div>
   );
 }
@@ -27,8 +27,8 @@ export default async function SponsorPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-6">
       <CountView />
-      <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-brass">Sponsor</p>
-      <h1 className="mt-2 font-display text-4xl leading-none tracking-tight sm:text-5xl">Put your exchange in front of owners who are already looking</h1>
+      <p className="kicker">Sponsor</p>
+      <h1 className="mt-2 font-display text-3xl leading-tight tracking-tight sm:text-4xl">Put your exchange in front of owners who are already looking</h1>
       <p className="mt-3 max-w-2xl text-muted">
         Two placements. The prices below are the offer. There is no checkout on this site.
       </p>
@@ -41,7 +41,7 @@ export default async function SponsorPage() {
             <Stat label="Pageviews, last 30 days" value={stats.pageviews30d} />
           </div>
         ) : (
-          <p className="rounded-md border border-line bg-card px-4 py-3 text-sm">
+          <p className="terminal px-4 py-3 text-sm">
             Live totals are unavailable until the database is connected. This page will not substitute a guessed number.
           </p>
         )}
@@ -49,16 +49,16 @@ export default async function SponsorPage() {
       </section>
 
       <section className="mt-8 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-md border border-line bg-card px-4 py-4">
-          <h2 className="font-display text-2xl">Featured state listing</h2>
-          <p className="mt-2 font-display text-4xl">$49<span className="text-lg text-muted">/month</span></p>
+        <div className="market-card market-card-featured px-4 py-4">
+          <h2 className="font-display text-2xl leading-tight">Featured state listing</h2>
+          <p className="mt-2 font-mono text-4xl text-pine">$49<span className="text-lg text-muted">/month</span></p>
           <p className="mt-2 text-sm leading-relaxed">
             Your exchange at the top of one state page, linked through a counted click.
           </p>
         </div>
-        <div className="rounded-md border border-line bg-card px-4 py-4">
-          <h2 className="font-display text-2xl">Newsletter slot</h2>
-          <p className="mt-2 font-display text-4xl">$25<span className="text-lg text-muted">/week</span></p>
+        <div className="market-card px-4 py-4">
+          <h2 className="font-display text-2xl leading-tight">Newsletter slot</h2>
+          <p className="mt-2 font-mono text-4xl text-cyan">$25<span className="text-lg text-muted">/week</span></p>
           <p className="mt-2 text-sm leading-relaxed">
             One “Sponsored by” line in the weekly note of five exchanges.
           </p>

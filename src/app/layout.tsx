@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible, Rajdhani } from "next/font/google";
+import { Atkinson_Hyperlegible, Orbitron, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
 import { SponsorBar } from "@/components/SponsorBar";
+import { Ticker } from "@/components/Ticker";
 import { HOUSE_SPONSOR_SLUG, siteUrl } from "@/lib/site";
 import { getBarSponsor } from "@/lib/sponsors";
 
@@ -14,14 +15,20 @@ const sans = Atkinson_Hyperlegible({
   variable: "--font-atkinson",
 });
 
-const display = Rajdhani({
+const display = Orbitron({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
-  variable: "--font-rajdhani",
+  variable: "--font-orbitron",
+});
+
+const mono = Share_Tech_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-share-tech",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#080a10",
+  themeColor: "#05060a",
   colorScheme: "dark",
 };
 
@@ -54,13 +61,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   };
 
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
       <body className="flex min-h-dvh flex-col antialiased">
-        <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:bg-card focus:px-3 focus:py-2">
+        <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:border focus:border-cyan focus:bg-card focus:px-3 focus:py-2">
           Skip to content
         </a>
         <SponsorBar sponsor={bar} />
         <Header />
+        <Ticker />
         <main id="content" className="flex-1">
           {children}
         </main>
