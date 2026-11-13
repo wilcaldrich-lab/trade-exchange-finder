@@ -57,13 +57,13 @@ export function ExchangeBrowser({
             value={filters.q}
             onChange={(event) => setFilters((current) => ({ ...current, q: event.target.value }))}
             placeholder="Search name, city, state, or description"
-            className="h-11 min-w-0 flex-1 rounded-md border border-line bg-card px-3 text-base"
+            className="h-11 min-w-0 flex-1 border border-line bg-card px-3 text-base"
           />
-          <button type="submit" className="h-11 shrink-0 rounded-md border border-ink px-3 text-sm font-bold">
+          <button type="submit" className="btn-ghost h-11 shrink-0 px-3 text-sm">
             Search
           </button>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:overflow-x-auto sm:pb-1">
           {showState ? (
             <label className="sr-only" htmlFor="state">
               State
@@ -75,7 +75,7 @@ export function ExchangeBrowser({
               name="state"
               value={filters.state}
               onChange={(event) => setFilters((current) => ({ ...current, state: event.target.value }))}
-              className="h-11 w-36 shrink-0 rounded-md border border-line bg-card px-2 text-sm"
+              className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-36 sm:shrink-0"
             >
               <option value="">All states</option>
               {states.map((state) => (
@@ -92,7 +92,7 @@ export function ExchangeBrowser({
               aria-label="Country"
               value={filters.country}
               onChange={(event) => setFilters((current) => ({ ...current, country: event.target.value }))}
-              className="h-11 w-40 shrink-0 rounded-md border border-line bg-card px-2 text-sm"
+              className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-40 sm:shrink-0"
             >
               <option value="">All countries</option>
               {countries.map((country) => (
@@ -108,7 +108,7 @@ export function ExchangeBrowser({
             aria-label="Network"
             value={filters.network}
             onChange={(event) => setFilters((current) => ({ ...current, network: event.target.value }))}
-            className="h-11 w-36 shrink-0 rounded-md border border-line bg-card px-2 text-sm"
+            className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-40 sm:shrink-0"
           >
             <option value="">All networks</option>
             {NETWORK_OPTIONS.map((network) => (
@@ -117,7 +117,7 @@ export function ExchangeBrowser({
               </option>
             ))}
           </select>
-          <label className="flex h-11 shrink-0 items-center gap-2 rounded-md border border-line bg-card px-2 text-sm">
+          <label className="flex h-11 min-w-0 items-center gap-2 border border-line bg-card px-2 text-sm sm:shrink-0">
             <input
               type="checkbox"
               name="fees"
@@ -129,8 +129,10 @@ export function ExchangeBrowser({
           </label>
         </div>
       </form>
-      <p className="mt-3 text-sm text-muted" aria-live="polite">
-        {results.length} {results.length === 1 ? "exchange" : "exchanges"}
+      <p className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-muted" aria-live="polite">
+        <span className="live-dot" aria-hidden="true" />
+        <span className="text-pine">{results.length}</span>
+        {results.length === 1 ? " exchange" : " exchanges"}
         {results.length !== exchanges.length ? ` of ${exchanges.length}` : ""}
       </p>
       {results.length ? (
@@ -140,8 +142,9 @@ export function ExchangeBrowser({
           ))}
         </div>
       ) : (
-        <p className="mt-4 rounded-md border border-line bg-card px-4 py-5 text-sm">
-          No exchanges match. Try a city or state name, or clear a filter.
+        <p className="terminal mt-4 px-4 py-5 text-sm">
+          <span className="kicker kicker-alert">No match</span>
+          <span className="mt-1 block">No exchanges match. Try a city or state name, or clear a filter.</span>
         </p>
       )}
     </div>

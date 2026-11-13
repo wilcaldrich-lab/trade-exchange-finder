@@ -22,8 +22,8 @@ export default async function SubmitPage({ searchParams }: { searchParams: Searc
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-6">
       <CountView />
-      <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-brass">Review queue</p>
-      <h1 className="mt-2 font-display text-4xl leading-none tracking-tight">Submit a listing</h1>
+      <p className="kicker">Review queue</p>
+      <h1 className="mt-2 font-display text-4xl leading-tight tracking-tight">Submit a listing</h1>
       <p className="mt-3 text-muted">
         Exchanges can send a new listing or a correction. Nothing goes live until it is approved. If a number was not published, leave it blank.
       </p>

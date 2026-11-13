@@ -5,7 +5,7 @@ import { NETWORK_OPTIONS } from "@/lib/exchange";
 
 type Choice = { slug: string; name: string };
 
-const inputClass = "h-12 w-full rounded-md border border-line bg-card px-3 text-base";
+const inputClass = "h-12 w-full border border-line bg-card px-3 text-base";
 
 export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initialSlug: string }) {
   const [kind, setKind] = useState<"new" | "correction">(initialSlug ? "correction" : "new");
@@ -170,7 +170,7 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
 
       <label className="text-sm font-bold">
         Description
-        <textarea name="description" rows={4} className="mt-1 w-full rounded-md border border-line bg-card px-3 py-2 font-normal" />
+        <textarea name="description" rows={4} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -196,7 +196,7 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
         </label>
         <label className="text-sm font-bold sm:col-span-2">
           Fee notes
-          <textarea name="fees_notes" rows={3} className="mt-1 w-full rounded-md border border-line bg-card px-3 py-2 font-normal" />
+          <textarea name="fees_notes" rows={3} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
         </label>
         <label className="text-sm font-bold">
           Approximate member count
@@ -210,17 +210,17 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
 
       <label className="text-sm font-bold">
         Source URLs, one per line or separated by spaces
-        <textarea name="source_urls" rows={3} className="mt-1 w-full rounded-md border border-line bg-card px-3 py-2 font-normal" />
+        <textarea name="source_urls" rows={3} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
       <label className="text-sm font-bold">
         Notes for the reviewer
-        <textarea name="notes" rows={3} className="mt-1 w-full rounded-md border border-line bg-card px-3 py-2 font-normal" />
+        <textarea name="notes" rows={3} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
       <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
-      <button type="submit" disabled={pending} className="h-12 rounded-md bg-pine text-sm font-bold text-paper disabled:opacity-60">
+      <button type="submit" disabled={pending} className="h-12 bg-pine text-sm text-paper disabled:opacity-60">
         {pending ? "Sending…" : "Submit for review"}
       </button>
       {message ? <p className="text-sm text-pine">{message}</p> : null}

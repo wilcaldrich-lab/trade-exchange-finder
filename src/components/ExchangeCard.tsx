@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { publishesFees, type ExchangeView } from "@/lib/exchange";
-import { formatCashFee } from "@/lib/format";
+import { NOT_PUBLISHED, formatCashFee, formatCount } from "@/lib/format";
 import { locationLine } from "@/lib/places";
+
+function quoteClass(value: string) {
+  return value === NOT_PUBLISHED
+    ? "mt-0.5 font-mono text-base text-muted"
+    : "mt-0.5 font-mono text-lg text-pine";
+}
 
 export function ExchangeCard({ exchange, featured = false }: { exchange: ExchangeView; featured?: boolean }) {
   const place = locationLine(exchange);
@@ -10,20 +16,28 @@ export function ExchangeCard({ exchange, featured = false }: { exchange: Exchang
     : exchange.country_slug
       ? `/country/${exchange.country_slug}`
       : null;
+  const fee = formatCashFee(exchange.cash_fee_percent);
+  const members = formatCount(exchange.approx_member_count);
+  const symbol =
+    exchange.state_region && exchange.state_region.length <= 3
+      ? exchange.state_region.toUpperCase()
+      : exchange.country || "";
 
   return (
-    <article className="rounded-md border border-line bg-card px-4 py-3.5">
-      <div className="flex items-start justify-between gap-3">
+    <article className={`market-card px-4 py-3.5 ${featured ? "market-card-featured" : ""}`}>
+      <div className="flex items-center justify-between gap-3">
+        <p className={featured ? "kicker kicker-alert" : "kicker"}>{featured ? "Featured" : "Listing"}</p>
+        <span className="flex items-center gap-2">
+          {symbol ? <span className="font-mono text-xs tracking-[0.14em] text-cyan">{symbol}</span> : null}
+          {featured ? <span className="pill pill-featured">Featured</span> : null}
+        </span>
+      </div>
+      <div className="mt-1 flex items-start justify-between gap-3">
         <h2 className="font-display text-[1.35rem] leading-tight tracking-tight">
-          <Link href={`/exchange/${exchange.slug}`} className="hover:text-pine-ink">
+          <Link href={`/exchange/${exchange.slug}`} className="decoration-pine underline-offset-4 hover:text-pine-ink hover:underline">
             {exchange.name}
           </Link>
         </h2>
-        {featured ? (
-          <span className="shrink-0 border border-brass px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-brass">
-            Featured
-          </span>
-        ) : null}
       </div>
       <p className="mt-1 text-sm text-muted">
         {placeHref ? (
@@ -37,23 +51,26 @@ export function ExchangeCard({ exchange, featured = false }: { exchange: Exchang
       {exchange.networks.length ? (
         <ul className="mt-2 flex flex-wrap gap-1">
           {exchange.networks.map((network) => (
-            <li
-              key={network}
-              className="border border-line px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-pine-ink"
-            >
+            <li key={network} className="pill">
               {network}
             </li>
           ))}
         </ul>
       ) : null}
       {exchange.description ? <p className="mt-2 line-clamp-3 text-[0.95rem] leading-snug">{exchange.description}</p> : null}
-      <p className="mt-2 text-sm">
-        <span className="text-muted">Cash fee </span>
-        {formatCashFee(exchange.cash_fee_percent)}
-        {publishesFees(exchange) && exchange.cash_fee_percent === null ? (
-          <span className="text-muted"> · other fees are published</span>
-        ) : null}
-      </p>
+      <div className="mt-3 grid grid-cols-2 gap-3 border-t border-line pt-2">
+        <div>
+          <p className="term-label">Fees</p>
+          <p className={quoteClass(fee)}>{fee}</p>
+          {publishesFees(exchange) && exchange.cash_fee_percent === null ? (
+            <p className="text-xs text-muted">Other fees are published</p>
+          ) : null}
+        </div>
+        <div>
+          <p className="term-label">Members</p>
+          <p className={quoteClass(members)}>{members}</p>
+        </div>
+      </div>
     </article>
   );
 }

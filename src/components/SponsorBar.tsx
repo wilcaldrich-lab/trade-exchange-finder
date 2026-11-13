@@ -26,8 +26,9 @@ export function SponsorBar({ sponsor }: { sponsor: SponsorCopy }) {
   if (dismissed) return null;
 
   return (
-    <div className="border-b border-pine/30 bg-[#061820] text-ink">
+    <div className="border-b border-stamp/50 bg-[#140810] text-ink">
       <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-2 text-sm">
+        <span className="pill pill-featured shrink-0">Sponsored</span>
         <a href={`/go/${sponsor.slug}`} className="min-w-0 flex-1 truncate hover:underline">
           <span className="font-bold">{sponsor.name}</span>
           {sponsor.tagline ? <span className="text-ink/80"> — {sponsor.tagline}</span> : null}

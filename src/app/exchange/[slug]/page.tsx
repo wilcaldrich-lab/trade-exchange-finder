@@ -39,11 +39,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-function Fact({ label, children }: { label: string; children: ReactNode }) {
+function Fact({ label, children, quote = false }: { label: string; children: ReactNode; quote?: boolean }) {
   return (
     <div className="bg-card px-3 py-3">
-      <dt className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-brass">{label}</dt>
-      <dd className="mt-1 text-sm leading-snug">{children}</dd>
+      <dt className="term-label">{label}</dt>
+      <dd className={quote ? "term-value term-value-num" : "term-value"}>{children}</dd>
     </div>
   );
 }
@@ -77,15 +77,15 @@ export default async function ExchangePage({ params }: Params) {
     <article className="mx-auto w-full max-w-3xl px-4 py-6">
       <CountView />
       <JsonLd data={jsonLd} />
-      <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-brass">
+      <p className="kicker">
         <Link href="/" className="hover:text-ink">Directory</Link>
         {place !== NOT_PUBLISHED ? ` · ${place}` : ""}
       </p>
-      <h1 className="mt-2 font-display text-4xl leading-none tracking-tight sm:text-5xl">{exchange.name}</h1>
+      <h1 className="mt-2 break-words font-display text-3xl leading-tight tracking-tight sm:text-5xl">{exchange.name}</h1>
       {exchange.networks.length ? (
         <ul className="mt-3 flex flex-wrap gap-1">
           {exchange.networks.map((network) => (
-            <li key={network} className="border border-line bg-card px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.14em]">
+            <li key={network} className="pill">
               {network}
             </li>
           ))}
@@ -96,7 +96,7 @@ export default async function ExchangePage({ params }: Params) {
       <p className="mt-4 text-lg leading-relaxed">{published(exchange.description)}</p>
       {website ? (
         <p className="mt-4">
-          <a href={website} className="font-bold text-pine underline underline-offset-4" rel="noopener noreferrer">
+          <a href={website} className="btn-ghost as-written inline-flex h-11 items-center px-4 text-sm" rel="noopener noreferrer">
             Visit {websiteLabel(website)}
           </a>
         </p>
@@ -104,30 +104,42 @@ export default async function ExchangePage({ params }: Params) {
         <p className="mt-4 text-sm">Website: {NOT_PUBLISHED}</p>
       )}
 
-      <h2 className="mt-8 font-display text-2xl">Published facts</h2>
-      <dl className="mt-3 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+      <h2 className="mt-8 font-display text-2xl leading-tight">Published facts</h2>
+      <dl className="fact-grid mt-3 grid grid-cols-1 gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
         <Fact label="City">{published(exchange.city)}</Fact>
         <Fact label="State or region">{exchange.state_region ? stateLabel(exchange.state_region, exchange.country) : NOT_PUBLISHED}</Fact>
         <Fact label="Country">{exchange.country ? `${countryName(exchange.country)} (${exchange.country})` : NOT_PUBLISHED}</Fact>
-        <Fact label="Phone">
-          {exchange.phone ? <a href={telHref(exchange.phone, exchange.country)}>{exchange.phone}</a> : NOT_PUBLISHED}
+        <Fact label="Phone" quote={Boolean(exchange.phone)}>
+          {exchange.phone ? (
+            <a className="underline decoration-pine underline-offset-4" href={telHref(exchange.phone, exchange.country)}>
+              {exchange.phone}
+            </a>
+          ) : (
+            NOT_PUBLISHED
+          )}
         </Fact>
         <Fact label="Email">
-          {exchange.email ? <a href={`mailto:${exchange.email}`}>{exchange.email}</a> : NOT_PUBLISHED}
+          {exchange.email ? (
+            <a className="underline decoration-cyan underline-offset-4" href={`mailto:${exchange.email}`}>
+              {exchange.email}
+            </a>
+          ) : (
+            NOT_PUBLISHED
+          )}
         </Fact>
-        <Fact label="Year founded">{published(exchange.year_founded)}</Fact>
-        <Fact label="Approximate members">{formatCount(exchange.approx_member_count)}</Fact>
+        <Fact label="Year founded" quote={exchange.year_founded !== null}>{published(exchange.year_founded)}</Fact>
+        <Fact label="Approximate members" quote={exchange.approx_member_count !== null}>{formatCount(exchange.approx_member_count)}</Fact>
         <Fact label="Member count notes">{published(exchange.member_count_notes)}</Fact>
-        <Fact label="Cash fee">{formatCashFee(exchange.cash_fee_percent)}</Fact>
+        <Fact label="Cash fee" quote={exchange.cash_fee_percent !== null}>{formatCashFee(exchange.cash_fee_percent)}</Fact>
         <Fact label="Monthly dues">{published(exchange.monthly_dues)}</Fact>
         <Fact label="Annual dues">{published(exchange.annual_dues)}</Fact>
         <Fact label="Joining fee">{published(exchange.joining_fee)}</Fact>
         <Fact label="Fee notes">{published(exchange.fees_notes)}</Fact>
-        <Fact label="Website response when checked">{published(exchange.website_http_status)}</Fact>
+        <Fact label="Website response when checked" quote={exchange.website_http_status !== null}>{published(exchange.website_http_status)}</Fact>
         <Fact label="Last checked">{formatDate(exchange.last_checked)}</Fact>
       </dl>
 
-      <h2 className="mt-8 font-display text-2xl">Sources</h2>
+      <h2 className="mt-8 font-display text-2xl leading-tight">Sources</h2>
       {linkedSources.length ? (
         <ul className="mt-3 space-y-2 text-sm">
           {linkedSources.map((url) => (
@@ -144,8 +156,9 @@ export default async function ExchangePage({ params }: Params) {
       <p className="mt-6 text-sm">
         See a mistake? <Link href={`/submit?slug=${exchange.slug}`} className="font-bold underline underline-offset-4">Send a correction</Link>. It is reviewed before anything changes.
       </p>
-      <div className="mt-8 max-w-md rounded-md border border-line bg-card px-4 py-4">
-        <h2 className="font-display text-2xl">Follow this directory</h2>
+      <div className="terminal mt-8 max-w-md px-4 py-4">
+        <p className="kicker">Join the network</p>
+        <h2 className="mt-1 font-display text-2xl leading-tight">Follow this directory</h2>
         <div className="mt-3">
           <SignupForm source={`exchange:${exchange.slug}`} />
         </div>

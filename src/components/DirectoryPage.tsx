@@ -65,12 +65,13 @@ export async function DirectoryPage({
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-3 sm:py-5">
       <JsonLd data={itemList} />
-      <h1 className="font-display text-[1.65rem] leading-none tracking-tight sm:text-5xl">{heading}</h1>
+      <p className="kicker">Trade floor</p>
+      <h1 className="mt-1 font-display text-[1.7rem] leading-tight tracking-tight sm:text-5xl">{heading}</h1>
       <p className="mt-1.5 max-w-2xl text-sm text-muted sm:text-base">{lede}</p>
       {feature ? (
-        <aside className="mt-4 rounded-md border border-brass bg-card px-4 py-3 text-sm">
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-brass">Featured</p>
-          <a href={`/go/${feature.slug}`} className="mt-1 block font-display text-2xl hover:text-pine-ink">
+        <aside className="market-card market-card-featured mt-4 px-4 py-3 text-sm">
+          <p className="kicker kicker-alert">Featured</p>
+          <a href={`/go/${feature.slug}`} className="mt-1 block font-display text-2xl leading-tight hover:text-pine-ink">
             {feature.name}
           </a>
           {feature.tagline ? <p className="mt-1 text-muted">{feature.tagline}</p> : null}
@@ -89,24 +90,24 @@ export async function DirectoryPage({
       </div>
       {showBrowse ? (
         <section className="mt-8 border-t border-line pt-5">
-          <h2 className="font-display text-2xl">Browse by state</h2>
+          <h2 className="font-display text-2xl leading-tight">Browse by state</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {all.states.map((state) => (
               <li key={state.slug}>
-                <Link href={`/state/${state.slug}`} className="inline-block rounded-full border border-line bg-card px-3 py-1.5 text-sm hover:border-ink">
+                <Link href={`/state/${state.slug}`} className="chip">
                   {state.label}
-                  <span className="text-muted"> {state.count}</span>
+                  <span className="font-mono text-cyan">{state.count}</span>
                 </Link>
               </li>
             ))}
           </ul>
-          <h2 className="mt-6 font-display text-2xl">Browse by country</h2>
+          <h2 className="mt-6 font-display text-2xl leading-tight">Browse by country</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {all.countries.map((country) => (
               <li key={country.slug}>
-                <Link href={`/country/${country.slug}`} className="inline-block rounded-full border border-line bg-card px-3 py-1.5 text-sm hover:border-ink">
+                <Link href={`/country/${country.slug}`} className="chip">
                   {country.label}
-                  <span className="text-muted"> {country.count}</span>
+                  <span className="font-mono text-cyan">{country.count}</span>
                 </Link>
               </li>
             ))}
