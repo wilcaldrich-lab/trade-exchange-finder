@@ -20,6 +20,7 @@ test("/state/texas resolves and /state/tx redirects", () => {
 
   assert.equal(resolveStateSlug("tx", groups).redirectTo, "/state/texas");
   assert.equal(resolveStateSlug("TX", groups).redirectTo, "/state/texas");
+  assert.equal(resolveStateSlug("Texas", groups).redirectTo, "/state/texas");
   assert.equal(resolveStateSlug("Tx", groups).group, null);
 
   assert.equal(resolveStateSlug("ontario", groups).group?.label, "Ontario");
@@ -56,4 +57,7 @@ test("state slugs use the full region name", () => {
   const texas = filterExchanges(views, { q: "", state: "texas", country: "", network: "", fees: false });
   assert.ok(texas.some((exchange) => exchange.slug === "alamo-barter"));
   assert.ok(texas.every((exchange) => exchange.state_region === "TX"));
+  const legacy = filterExchanges(views, { q: "", state: "tx", country: "", network: "", fees: false });
+  assert.ok(legacy.some((exchange) => exchange.slug === "alamo-barter"));
+  assert.ok(legacy.every((exchange) => exchange.state_region === "TX"));
 });

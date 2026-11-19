@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { databaseUrl, logError, query } from "@/lib/db";
-import { isSafeHttpUrl } from "@/lib/urls";
+import { isSafeHttpUrl, safeRedirectTarget } from "@/lib/urls";
 
 export type Sponsor = {
   id: number;
@@ -161,7 +161,8 @@ export async function listSponsors(): Promise<Sponsor[]> {
 }
 
 export function validSponsorUrl(value: string): boolean {
-  return isSafeHttpUrl(value) || (value.startsWith("/") && !value.startsWith("//"));
+  if (value.startsWith("/")) return safeRedirectTarget(value, "https://barterexchanges.org") !== null;
+  return isSafeHttpUrl(value);
 }
 
 export async function logSponsorClick(sponsor: string, referrer: string | null): Promise<void> {

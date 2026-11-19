@@ -32,7 +32,8 @@ function present(raw: Record<string, unknown>, key: Field): boolean {
   if (!Object.prototype.hasOwnProperty.call(raw, key)) return false;
   const value = raw[key];
   if (value === "" || value === undefined || value === null) return false;
-  if (Array.isArray(value) && value.length === 0) return false;
+  // An empty network list is an explicit clear. Other blank lists mean "no change".
+  if (Array.isArray(value) && value.length === 0 && key !== "networks") return false;
   return true;
 }
 
@@ -78,6 +79,9 @@ export function normalizeListing(raw: Record<string, unknown>, fallbackSlug?: st
     .map((network) => network.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12))
     .filter((network) => network.length >= 2);
   draft.source_urls = draft.source_urls.filter((url) => isSafeHttpUrl(url)).slice(0, 12);
+  if (draft.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email)) {
+    return { error: "Public email must look like an email address." };
+  }
   return draft;
 }
 

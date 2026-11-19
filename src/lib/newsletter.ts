@@ -9,14 +9,27 @@ function dayOfYear(date: Date): number {
   return Math.floor((current - start) / 86_400_000);
 }
 
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
+/** A stride that still visits every listing when the catalog size shares factors with 7. */
+function stride(length: number): number {
+  for (let step = Math.min(7, length - 1); step >= 1; step -= 1) {
+    if (gcd(step, length) === 1) return step;
+  }
+  return 1;
+}
+
 export function pickFive(entries: Exchange[], now = new Date()): Exchange[] {
   const pool = [...entries].filter((entry) => entry.slug && entry.name).sort((a, b) => a.slug.localeCompare(b.slug));
   if (pool.length <= 5) return pool;
   const start = dayOfYear(now) % pool.length;
+  const stepSize = stride(pool.length);
   const picks: Exchange[] = [];
   const seen = new Set<string>();
-  for (let step = 0; picks.length < 5 && step < pool.length * 2; step += 1) {
-    const item = pool[(start + step * 7) % pool.length];
+  for (let step = 0; picks.length < 5 && step < pool.length; step += 1) {
+    const item = pool[(start + step * stepSize) % pool.length];
     if (!item || seen.has(item.slug)) continue;
     seen.add(item.slug);
     picks.push(item);

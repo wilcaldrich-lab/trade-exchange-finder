@@ -5,7 +5,7 @@ function Run({ items }: { items: string[] }) {
   return (
     <span className="ticker-run">
       {items.map((item, index) => (
-        <span key={item}>
+        <span key={`${index}-${item}`}>
           {index > 0 ? <span className="ticker-sep">{" // "}</span> : null}
           {item}
         </span>

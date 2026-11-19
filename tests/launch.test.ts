@@ -3,9 +3,13 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { NextRequest } from "next/server";
+import { GET } from "../src/app/api/confirm/route";
 import { readConfirmToken, signConfirmToken } from "../src/lib/confirm";
 import { poolConfig } from "../src/lib/db";
 import { telHref } from "../src/lib/phone";
+import { clientIpFromHeaders, rateLimit } from "../src/lib/rate-limit";
+import { proxy } from "../src/proxy";
 import { correctionChangesSlug } from "../src/lib/submissions";
 
 test("phone links keep an existing plus and add the country calling code", () => {
@@ -43,6 +47,64 @@ test("corrections cannot change the slug", () => {
   assert.equal(correctionChangesSlug({ slug: "other-name" }, "alamo-barter"), true);
   assert.equal(correctionChangesSlug({ slug: "Alamo Barter" }, "alamo-barter"), false);
   assert.equal(correctionChangesSlug({ name: "Alamo" }, "alamo-barter"), false);
+});
+
+test("a full rate-limit map does not clear a blocked key", () => {
+  assert.equal(rateLimit("kept-user", 1, 60_000), true);
+  assert.equal(rateLimit("kept-user", 1, 60_000), false);
+  for (let index = 0; index < 5200; index += 1) rateLimit(`fill-${index}`, 5, 60_000);
+  assert.equal(rateLimit("kept-user", 1, 60_000), false);
+});
+
+test("client ip prefers the platform header over a spoofed forwarded hop", () => {
+  const headers = new Headers({
+    "x-forwarded-for": "1.1.1.1",
+    "x-real-ip": "198.51.100.4",
+    "x-vercel-forwarded-for": "203.0.113.9",
+  });
+  assert.equal(clientIpFromHeaders(headers), "203.0.113.9");
+  assert.equal(clientIpFromHeaders(new Headers({ "x-forwarded-for": "198.51.100.8, 10.0.0.1" })), "198.51.100.8");
+});
+
+test("alternate hosts redirect robots, sitemap, and icons", () => {
+  for (const path of ["/sitemap.xml", "/robots.txt", "/favicon.ico"]) {
+    const response = proxy(new NextRequest(`https://tradeexchangefinder.com${path}`));
+    assert.equal(response.status, 308);
+    assert.equal(response.headers.get("location"), `https://barterexchanges.org${path}`);
+  }
+  const canonical = proxy(new NextRequest("https://barterexchanges.org/guide", { headers: { "user-agent": "Mozilla/5.0" } }));
+  assert.notEqual(canonical.status, 308);
+});
+
+test("opening a confirmation link does not confirm by itself", async () => {
+  const previousSecret = process.env.CONFIRM_SECRET;
+  const previousSite = process.env.SITE_URL;
+  const previousDb = process.env.DATABASE_URL;
+  const previousPg = process.env.POSTGRES_URL;
+  process.env.CONFIRM_SECRET = "confirm-test-secret";
+  process.env.SITE_URL = "https://barterexchanges.org/?q=<script>";
+  delete process.env.DATABASE_URL;
+  delete process.env.POSTGRES_URL;
+  try {
+    const missing = await GET(new Request("https://barterexchanges.org/api/confirm?token=nope"));
+    assert.equal(missing.status, 400);
+    const html = await missing.text();
+    assert.doesNotMatch(html, /<script>/);
+    assert.match(html, /&lt;script&gt;/);
+    const source = readFileSync(new URL("../src/app/api/confirm/route.ts", import.meta.url), "utf8");
+    const getFn = source.slice(source.indexOf("export async function GET"), source.indexOf("export async function POST"));
+    assert.doesNotMatch(getFn, /UPDATE|addToAudience/);
+    assert.match(getFn, /Confirm your email/);
+  } finally {
+    if (previousSecret === undefined) delete process.env.CONFIRM_SECRET;
+    else process.env.CONFIRM_SECRET = previousSecret;
+    if (previousSite === undefined) delete process.env.SITE_URL;
+    else process.env.SITE_URL = previousSite;
+    if (previousDb === undefined) delete process.env.DATABASE_URL;
+    else process.env.DATABASE_URL = previousDb;
+    if (previousPg === undefined) delete process.env.POSTGRES_URL;
+    else process.env.POSTGRES_URL = previousPg;
+  }
 });
 
 test("signup migration adds confirmed and synced_at", () => {

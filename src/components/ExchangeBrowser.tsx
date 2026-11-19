@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ExchangeCard } from "@/components/ExchangeCard";
 import type { ExchangeView } from "@/lib/exchange";
@@ -28,17 +28,28 @@ export function ExchangeBrowser({
   const router = useRouter();
   const pathname = usePathname();
   const [filters, setFilters] = useState(initial);
+  const initialKey = toQuery(initial);
+  const written = useRef(initialKey);
+
+  useEffect(() => {
+    if (initialKey === written.current) return;
+    if (window.location.search === written.current) return;
+    written.current = initialKey;
+    setFilters(initial);
+  }, [initial, initialKey]);
+
+  function commit(next: Filters) {
+    const query = toQuery(next);
+    written.current = query;
+    setFilters(next);
+    if (window.location.search !== query) router.replace(`${pathname}${query}`, { scroll: false });
+  }
+
   const results = useMemo(() => {
     const filtered = filterExchanges(exchanges, filters);
     if (!featuredSlug) return filtered;
     return [...filtered].sort((a, b) => Number(b.slug === featuredSlug) - Number(a.slug === featuredSlug));
   }, [exchanges, filters, featuredSlug]);
-
-  useEffect(() => {
-    const next = toQuery(filters);
-    if (window.location.search === next) return;
-    router.replace(`${pathname}${next}`, { scroll: false });
-  }, [filters, pathname, router]);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -55,7 +66,7 @@ export function ExchangeBrowser({
             id="q"
             name="q"
             value={filters.q}
-            onChange={(event) => setFilters((current) => ({ ...current, q: event.target.value }))}
+            onChange={(event) => commit({ ...filters, q: event.target.value })}
             placeholder="Search name, city, state, or description"
             className="h-11 min-w-0 flex-1 border border-line bg-card px-3 text-base"
           />
@@ -74,7 +85,7 @@ export function ExchangeBrowser({
               id="state"
               name="state"
               value={filters.state}
-              onChange={(event) => setFilters((current) => ({ ...current, state: event.target.value }))}
+              onChange={(event) => commit({ ...filters, state: event.target.value })}
               className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-36 sm:shrink-0"
             >
               <option value="">All states</option>
@@ -91,7 +102,7 @@ export function ExchangeBrowser({
               name="country"
               aria-label="Country"
               value={filters.country}
-              onChange={(event) => setFilters((current) => ({ ...current, country: event.target.value }))}
+              onChange={(event) => commit({ ...filters, country: event.target.value })}
               className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-40 sm:shrink-0"
             >
               <option value="">All countries</option>
@@ -107,7 +118,7 @@ export function ExchangeBrowser({
             name="network"
             aria-label="Network"
             value={filters.network}
-            onChange={(event) => setFilters((current) => ({ ...current, network: event.target.value }))}
+            onChange={(event) => commit({ ...filters, network: event.target.value })}
             className="h-11 w-full min-w-0 border border-line bg-card px-2 text-sm sm:w-40 sm:shrink-0"
           >
             <option value="">All networks</option>
@@ -123,7 +134,7 @@ export function ExchangeBrowser({
               name="fees"
               value="1"
               checked={filters.fees}
-              onChange={(event) => setFilters((current) => ({ ...current, fees: event.target.checked }))}
+              onChange={(event) => commit({ ...filters, fees: event.target.checked })}
             />
             Publishes fees
           </label>

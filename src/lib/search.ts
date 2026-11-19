@@ -76,10 +76,16 @@ function countryOf(exchange: ExchangeView | Exchange): string {
   return (exchange.country || "").toLowerCase();
 }
 
+function stateMatches(exchange: Exchange, filter: string): boolean {
+  if (stateOf(exchange) === filter) return true;
+  // Old links used the two-letter region code. Slugs are the full region name.
+  return /^[a-z]{2}$/.test(filter) && (exchange.state_region || "").toLowerCase() === filter;
+}
+
 export function filterExchanges<T extends Exchange>(list: T[], filters: Filters): T[] {
   return list.filter((exchange) => {
     if (filters.country && countryOf(exchange) !== filters.country) return false;
-    if (filters.state && stateOf(exchange) !== filters.state) return false;
+    if (filters.state && !stateMatches(exchange, filters.state)) return false;
     if (filters.network && !exchange.networks.includes(filters.network)) return false;
     if (filters.fees && !publishesFees(exchange)) return false;
     if (filters.q && !matchesQuery(exchange, filters.q)) return false;

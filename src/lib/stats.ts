@@ -8,7 +8,7 @@ export type LiveStats = {
 
 export type AdminStats = {
   entries: number;
-  signups: { total: number; last7d: number };
+  signups: { total: number; confirmed: number; last7d: number };
   pageviews: { last7d: number; last30d: number; topPages: { path: string; views: number }[] };
   sponsorClicks: { total: number; last30d: number };
   inquiries: number;
@@ -19,7 +19,7 @@ export async function getLiveStats(): Promise<LiveStats | null> {
   try {
     const [entries, signups, views] = await Promise.all([
       query<{ count: string }>("SELECT count(*)::text AS count FROM entries"),
-      query<{ count: string }>("SELECT count(*)::text AS count FROM signups"),
+      query<{ count: string }>("SELECT count(*)::text AS count FROM signups WHERE confirmed = true"),
       query<{ count: string }>(
         "SELECT coalesce(sum(count), 0)::text AS count FROM pageviews WHERE day >= CURRENT_DATE - INTERVAL '29 days'",
       ),
@@ -35,9 +35,10 @@ export async function getLiveStats(): Promise<LiveStats | null> {
 }
 
 export async function getAdminStats(): Promise<AdminStats> {
-  const [entries, signups, signups7, views7, views30, topPages, clicks, clicks30, inquiries] = await Promise.all([
+  const [entries, signups, confirmed, signups7, views7, views30, topPages, clicks, clicks30, inquiries] = await Promise.all([
     query<{ count: string }>("SELECT count(*)::text AS count FROM entries"),
     query<{ count: string }>("SELECT count(*)::text AS count FROM signups"),
+    query<{ count: string }>("SELECT count(*)::text AS count FROM signups WHERE confirmed = true"),
     query<{ count: string }>("SELECT count(*)::text AS count FROM signups WHERE created_at >= now() - INTERVAL '7 days'"),
     query<{ count: string }>(
       "SELECT coalesce(sum(count), 0)::text AS count FROM pageviews WHERE day >= CURRENT_DATE - INTERVAL '6 days'",
@@ -62,7 +63,11 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   return {
     entries: Number(entries[0]?.count || 0),
-    signups: { total: Number(signups[0]?.count || 0), last7d: Number(signups7[0]?.count || 0) },
+    signups: {
+      total: Number(signups[0]?.count || 0),
+      confirmed: Number(confirmed[0]?.count || 0),
+      last7d: Number(signups7[0]?.count || 0),
+    },
     pageviews: {
       last7d: Number(views7[0]?.count || 0),
       last30d: Number(views30[0]?.count || 0),

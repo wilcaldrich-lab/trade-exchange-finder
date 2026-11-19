@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getExchange } from "@/lib/catalog";
+import { resolveExchange } from "@/lib/catalog";
 import { NOT_PUBLISHED } from "@/lib/format";
 import { locationLine } from "@/lib/places";
 
@@ -10,7 +10,7 @@ export const runtime = "nodejs";
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const exchange = await getExchange(slug);
+  const { exchange } = await resolveExchange(slug);
   const name = exchange?.name || "Exchange not listed";
   const place = exchange ? locationLine(exchange) : "";
   const line = place && place !== NOT_PUBLISHED ? place : "Business barter exchange";

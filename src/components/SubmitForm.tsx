@@ -3,13 +3,19 @@
 import { useState, type FormEvent } from "react";
 import { NETWORK_OPTIONS } from "@/lib/exchange";
 
-type Choice = { slug: string; name: string };
+type Choice = { slug: string; name: string; networks: string[] };
 
 const inputClass = "h-12 w-full border border-line bg-card px-3 text-base";
 
+function networksFor(choices: Choice[], slug: string): string[] {
+  return choices.find((choice) => choice.slug === slug)?.networks ?? [];
+}
+
 export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initialSlug: string }) {
   const [kind, setKind] = useState<"new" | "correction">(initialSlug ? "correction" : "new");
-  const [networks, setNetworks] = useState<string[]>([]);
+  const [exchangeSlug, setExchangeSlug] = useState(initialSlug);
+  const [networks, setNetworks] = useState<string[]>(() => (initialSlug ? networksFor(choices, initialSlug) : []));
+  const [networksTouched, setNetworksTouched] = useState(false);
   const [fax, setFax] = useState("");
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState("");
@@ -51,6 +57,8 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
         .map((url) => url.trim())
         .filter(Boolean),
     };
+    if (kind === "new" || networksTouched) payload.networks = networks;
+    else delete payload.networks;
     try {
       const response = await fetch("/api/submit", {
         method: "POST",
@@ -64,7 +72,8 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
       }
       setMessage("Saved for review. It will not appear in the directory until it is approved.");
       formElement.reset();
-      setNetworks([]);
+      setNetworksTouched(false);
+      setNetworks(kind === "correction" ? networksFor(choices, exchangeSlug) : []);
     } catch {
       setError("Could not save that submission.");
     } finally {
@@ -77,11 +86,29 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
       <fieldset className="flex gap-4">
         <legend className="text-sm font-bold">What are you sending?</legend>
         <label className="mt-2 flex items-center gap-2 text-sm">
-          <input type="radio" name="kind" checked={kind === "new"} onChange={() => setKind("new")} />
+          <input
+            type="radio"
+            name="kind"
+            checked={kind === "new"}
+            onChange={() => {
+              setKind("new");
+              setNetworks([]);
+              setNetworksTouched(false);
+            }}
+          />
           New listing
         </label>
         <label className="mt-2 flex items-center gap-2 text-sm">
-          <input type="radio" name="kind" checked={kind === "correction"} onChange={() => setKind("correction")} />
+          <input
+            type="radio"
+            name="kind"
+            checked={kind === "correction"}
+            onChange={() => {
+              setKind("correction");
+              setNetworks(networksFor(choices, exchangeSlug));
+              setNetworksTouched(false);
+            }}
+          />
           Correction
         </label>
       </fieldset>
@@ -100,7 +127,17 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
       {kind === "correction" ? (
         <label className="text-sm font-bold">
           Exchange to correct
-          <select name="exchange_slug" required defaultValue={initialSlug} className={`${inputClass} mt-1 font-normal`}>
+          <select
+            name="exchange_slug"
+            required
+            value={exchangeSlug}
+            onChange={(event) => {
+              setExchangeSlug(event.target.value);
+              setNetworks(networksFor(choices, event.target.value));
+              setNetworksTouched(false);
+            }}
+            className={`${inputClass} mt-1 font-normal`}
+          >
             <option value="">Choose one</option>
             {choices.map((choice) => (
               <option key={choice.slug} value={choice.slug}>
@@ -150,6 +187,11 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
 
       <fieldset>
         <legend className="text-sm font-bold">Networks they publish</legend>
+        {kind === "correction" ? (
+          <p className="mt-1 text-sm text-muted">
+            Leave these alone to keep the saved list. If you change a box, the saved list becomes exactly the boxes that stay checked.
+          </p>
+        ) : null}
         <div className="mt-2 flex flex-wrap gap-3">
           {NETWORK_OPTIONS.map((network) => (
             <label key={network} className="flex items-center gap-2 text-sm">
@@ -157,6 +199,7 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
                 type="checkbox"
                 checked={networks.includes(network)}
                 onChange={(event) => {
+                  setNetworksTouched(true);
                   setNetworks((current) =>
                     event.target.checked ? [...current, network] : current.filter((item) => item !== network),
                   );
@@ -216,7 +259,7 @@ export function SubmitForm({ choices, initialSlug }: { choices: Choice[]; initia
         Notes for the reviewer
         <textarea name="notes" rows={3} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
-      <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label className="sr-only" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
