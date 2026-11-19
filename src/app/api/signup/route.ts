@@ -29,6 +29,9 @@ export async function POST(request: Request) {
     const email = typeof body.email === "string" ? normalizeEmail(body.email) : "";
     const reason = emailBlockReason(email);
     if (reason) return NextResponse.json({ error: reason }, { status: 400 });
+    if (!rateLimit(`signup-email:${email}`, 3, 60 * 60 * 1000)) {
+      return NextResponse.json({ error: "Too many requests for that email. Try again later." }, { status: 429 });
+    }
     if (!databaseUrl()) {
       return NextResponse.json({ error: "Signups are unavailable until the database is connected." }, { status: 503 });
     }

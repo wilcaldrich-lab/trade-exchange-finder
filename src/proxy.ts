@@ -9,6 +9,8 @@ const REDIRECT_HOSTS = new Set([
 
 const BOT_UA = /bot|crawl|spider|curl|wget|python|headless|preview/i;
 
+const STATIC_EXT = /\.(?:png|svg|jpg|jpeg|gif|webp|avif|ico|js|css|map|json|txt|xml|webmanifest|woff|woff2)$/i;
+
 export function shouldCountView(input: {
   pathname: string;
   dest: string | null;
@@ -17,13 +19,14 @@ export function shouldCountView(input: {
   userAgent: string;
 }): boolean {
   if (input.pathname.startsWith("/api") || input.pathname.startsWith("/go")) return false;
+  if (STATIC_EXT.test(input.pathname)) return false;
   if (input.prefetch) return false;
   if (BOT_UA.test(input.userAgent)) return false;
   return input.dest === "document" || input.isRsc;
 }
 
 export function proxy(request: NextRequest) {
-  const host = (request.headers.get("host") || "").toLowerCase().split(":")[0];
+  const host = (request.headers.get("host") || request.nextUrl.host).toLowerCase().split(":")[0];
   if (REDIRECT_HOSTS.has(host)) {
     const destination = new URL(request.nextUrl.pathname + request.nextUrl.search, "https://barterexchanges.org");
     return NextResponse.redirect(destination, 308);
@@ -51,7 +54,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|.*\\.(?:png|svg|jpg|jpeg|gif|webp|avif|ico|js|css|map|json|txt|xml|webmanifest|woff|woff2)$).*)",
-  ],
+  // Keep host redirects on /robots.txt, /sitemap.xml, and icons. Counting those
+  // paths is skipped in shouldCountView. Built assets stay out of the proxy.
+  matcher: ["/((?!_next/static|_next/image).*)"],
 };

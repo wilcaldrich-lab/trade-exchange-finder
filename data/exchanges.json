@@ -697,7 +697,7 @@
     {
       "name": "BancMarc (The Barter Authority)",
       "slug": "bancmarc",
-      "website": "https://barterauthority.com/",
+      "website": "https://bancmarc.com/",
       "city": "Henrico",
       "state_region": "VA",
       "country": "US",
@@ -717,7 +717,8 @@
       "year_founded": 1980,
       "source_urls": [
         "https://irta.com/member-directory/",
-        "https://barterauthority.com/"
+        "https://barterauthority.com/",
+        "https://bancmarc.com/"
       ],
       "website_http_status": 200,
       "last_checked": "2026-11-10"

@@ -42,6 +42,7 @@ export async function sendConfirmEmail(email: string, link: string): Promise<{ o
     text: [
       "Confirm your email to hear when the directory changes.",
       "",
+      "Open this link and press Confirm email:",
       link,
       "",
       "If you did not sign up, you can ignore this message.",

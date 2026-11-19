@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { CountView } from "@/components/CountView";
 import { DirectoryPage } from "@/components/DirectoryPage";
 import { getExchanges } from "@/lib/catalog";
@@ -13,12 +13,18 @@ async function loadCountry(country: string) {
   const groups = countryGroups(await getExchanges());
   const exchanges = groups.get(code);
   if (!exchanges?.length) return null;
-  return { slug: code, label: countryName(exchanges[0]?.country), count: exchanges.length };
+  return {
+    slug: code,
+    label: countryName(exchanges[0]?.country),
+    count: exchanges.length,
+    redirectTo: country === code ? null : `/country/${code}`,
+  };
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { country } = await params;
   const group = await loadCountry(country);
+  if (group?.redirectTo) permanentRedirect(group.redirectTo);
   if (!group) return { title: "Country not listed" };
   const title = `Barter exchanges in ${group.label}`;
   const description = `Business trade exchanges listed in ${group.label}. Fees appear only when an exchange published them.`;
@@ -34,6 +40,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function CountryPage({ params, searchParams }: Params) {
   const { country } = await params;
   const group = await loadCountry(country);
+  if (group?.redirectTo) permanentRedirect(group.redirectTo);
   if (!group) notFound();
   return (
     <>

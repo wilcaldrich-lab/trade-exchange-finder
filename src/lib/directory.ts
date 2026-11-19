@@ -52,7 +52,10 @@ export function resolveStateSlug(
 ): { group: StateGroup | null; redirectTo: string | null } {
   const key = param.toLowerCase();
   const direct = groups.get(key) || null;
-  if (direct) return { group: direct, redirectTo: null };
+  if (direct) {
+    if (param !== direct.slug) return { group: null, redirectTo: `/state/${direct.slug}` };
+    return { group: direct, redirectTo: null };
+  }
   if (!/^[a-z]{2}$/i.test(param)) return { group: null, redirectTo: null };
   const code = param.toUpperCase();
   const matches = [...groups.values()].filter((group) => group.stateRegion.toUpperCase() === code);

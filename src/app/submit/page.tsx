@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CountView } from "@/components/CountView";
 import { SubmitForm } from "@/components/SubmitForm";
 import { getExchanges } from "@/lib/catalog";
+import { knownNetwork } from "@/lib/exchange";
 
 const title = "Submit a listing or correction";
 const description = "Send a new business barter exchange or a correction. It stays in review until it is approved.";
@@ -30,7 +31,11 @@ export default async function SubmitPage({ searchParams }: { searchParams: Searc
       <div className="mt-6">
         <SubmitForm
           initialSlug={initialSlug}
-          choices={exchanges.map((exchange) => ({ slug: exchange.slug, name: exchange.name }))}
+          choices={exchanges.map((exchange) => ({
+            slug: exchange.slug,
+            name: exchange.name,
+            networks: exchange.networks.filter((network) => knownNetwork(network)),
+          }))}
         />
       </div>
     </div>

@@ -38,6 +38,16 @@ export async function getExchanges(): Promise<Exchange[]> {
 }
 
 export async function getExchange(slug: string): Promise<Exchange | null> {
+  const { exchange } = await resolveExchange(slug);
+  return exchange;
+}
+
+export async function resolveExchange(slug: string): Promise<{ exchange: Exchange | null; redirectTo: string | null }> {
   const exchanges = await getExchanges();
-  return exchanges.find((exchange) => exchange.slug === slug) || null;
+  const exact = exchanges.find((exchange) => exchange.slug === slug) || null;
+  if (exact) return { exchange: exact, redirectTo: null };
+  const folded = slug.toLowerCase();
+  const match = exchanges.find((exchange) => exchange.slug.toLowerCase() === folded) || null;
+  if (match) return { exchange: match, redirectTo: `/exchange/${match.slug}` };
+  return { exchange: null, redirectTo: null };
 }

@@ -343,6 +343,9 @@ input[type="radio"] {
 
 .ticker {
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 2rem;
   border-bottom: 1px solid rgba(182, 255, 60, 0.32);
   background: #070b10;
@@ -455,6 +458,8 @@ input[type="radio"] {
 
   .ticker {
     overflow-x: auto;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .ticker-run + .ticker-run {

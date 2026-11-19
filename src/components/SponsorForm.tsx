@@ -79,7 +79,7 @@ export function SponsorForm() {
         Message
         <textarea name="message" required rows={5} className="mt-1 w-full border border-line bg-card px-3 py-2 font-normal" />
       </label>
-      <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label className="sr-only" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>

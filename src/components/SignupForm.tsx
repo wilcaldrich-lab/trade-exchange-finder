@@ -80,7 +80,7 @@ export function SignupForm({ source }: { source: string }) {
       <p className="text-xs text-muted">
         Unsubscribe anytime. See our <Link href="/privacy" className="underline">privacy policy</Link>.
       </p>
-      <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label className="sr-only" aria-hidden="true">
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>

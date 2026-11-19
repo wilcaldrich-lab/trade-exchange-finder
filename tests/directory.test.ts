@@ -8,7 +8,8 @@ import { NOT_PUBLISHED, formatCashFee, published } from "../src/lib/format";
 import { pickFive } from "../src/lib/newsletter";
 import { filterExchanges, scrubQuery } from "../src/lib/search";
 import { slugify } from "../src/lib/slug";
-import { isSafeHttpUrl } from "../src/lib/urls";
+import { listingPayload } from "../src/lib/submissions";
+import { isSafeHttpUrl, safeRedirectTarget } from "../src/lib/urls";
 
 const seed = exchangesFromUnknown(
   JSON.parse(readFileSync(new URL("../data/exchanges.json", import.meta.url), "utf8")) as unknown,
@@ -72,12 +73,31 @@ test("redirect targets reject unsafe URLs", () => {
   assert.equal(isSafeHttpUrl("javascript:alert(1)"), false);
   assert.equal(isSafeHttpUrl("//evil.example"), false);
   assert.equal(isSafeHttpUrl("https://user:pass@evil.example"), false);
+  const origin = "https://barterexchanges.org";
+  assert.equal(safeRedirectTarget("/sponsor", origin)?.href, "https://barterexchanges.org/sponsor");
+  assert.equal(safeRedirectTarget("/\\evil.com", origin), null);
+  assert.equal(safeRedirectTarget("//evil.com", origin), null);
+  assert.equal(safeRedirectTarget("https://evil.example/offer", origin)?.href, "https://evil.example/offer");
+});
+
+test("a correction can clear networks and still ignore a blank source list", () => {
+  assert.deepEqual(listingPayload({ networks: [], source_urls: [], phone: "210-650-9300" }, "correction"), {
+    networks: [],
+    phone: "210-650-9300",
+  });
+  assert.deepEqual(listingPayload({ source_urls: [] }, "correction"), {});
 });
 
 test("newsletter pick is five unique exchanges", () => {
   const picks = pickFive(seed, new Date("2026-11-11T12:00:00Z"));
   assert.equal(picks.length, 5);
   assert.equal(new Set(picks.map((pick) => pick.slug)).size, 5);
+  for (const size of [7, 14, 28]) {
+    const pool = Array.from({ length: size }, (_, index) => ({ ...seed[0], slug: `n-${index}`, name: `N ${index}` }));
+    const chosen = pickFive(pool, new Date("2026-11-11T12:00:00Z"));
+    assert.equal(chosen.length, 5, `size ${size}`);
+    assert.equal(new Set(chosen.map((pick) => pick.slug)).size, 5);
+  }
 });
 
 test("slugify keeps urls readable", () => {

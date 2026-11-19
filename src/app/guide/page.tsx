@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CountView } from "@/components/CountView";
 import { JsonLd } from "@/components/JsonLd";
+import { absoluteUrl } from "@/lib/site";
 
 const title = "How business barter works";
 const description =
@@ -23,7 +24,10 @@ export default function GuidePage() {
           "@context": "https://schema.org",
           "@type": "Article",
           headline: "How business barter works",
+          datePublished: "2026-11-10",
           dateModified: "2026-11-10",
+          image: absoluteUrl("/opengraph-image"),
+          mainEntityOfPage: absoluteUrl("/guide"),
           author: { "@type": "Organization", name: "Trade Exchange Finder" },
           publisher: { "@type": "Organization", name: "Trade Exchange Finder" },
         }}

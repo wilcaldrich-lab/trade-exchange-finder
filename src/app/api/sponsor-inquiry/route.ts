@@ -30,6 +30,9 @@ export async function POST(request: Request) {
     if (emailReason) return NextResponse.json({ error: emailReason }, { status: 400 });
     if (!offer) return NextResponse.json({ error: "Choose an offer." }, { status: 400 });
     if (!message) return NextResponse.json({ error: "Add a short note." }, { status: 400 });
+    if (!rateLimit(`sponsor-email:${email}`, 5, 60 * 60 * 1000)) {
+      return NextResponse.json({ error: "Too many requests for that email. Try again later." }, { status: 429 });
+    }
     if (!databaseUrl()) {
       return NextResponse.json({ error: "Inquiries are unavailable until the database is connected." }, { status: 503 });
     }

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { CountView } from "@/components/CountView";
 import { JsonLd } from "@/components/JsonLd";
 import { SignupForm } from "@/components/SignupForm";
-import { getExchange } from "@/lib/catalog";
+import { resolveExchange } from "@/lib/catalog";
 import type { Exchange } from "@/lib/exchange";
 import { NOT_PUBLISHED, formatCashFee, formatCount, formatDate, published } from "@/lib/format";
 import { telHref } from "@/lib/phone";
@@ -25,7 +25,8 @@ function summary(exchange: Exchange): string {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const exchange = await getExchange(slug);
+  const { exchange, redirectTo } = await resolveExchange(slug);
+  if (redirectTo) permanentRedirect(redirectTo);
   if (!exchange) return { title: "Exchange not listed" };
   const description = summary(exchange);
   const path = `/exchange/${exchange.slug}`;
@@ -50,7 +51,8 @@ function Fact({ label, children, quote = false }: { label: string; children: Rea
 
 export default async function ExchangePage({ params }: Params) {
   const { slug } = await params;
-  const exchange = await getExchange(slug);
+  const { exchange, redirectTo } = await resolveExchange(slug);
+  if (redirectTo) permanentRedirect(redirectTo);
   if (!exchange) notFound();
   const website = exchange.website && isSafeHttpUrl(exchange.website) ? exchange.website : null;
   const place = locationLine(exchange);
@@ -93,7 +95,7 @@ export default async function ExchangePage({ params }: Params) {
       ) : (
         <p className="mt-3 text-sm text-muted">Networks: {NOT_PUBLISHED}</p>
       )}
-      <p className="mt-4 text-lg leading-relaxed">{published(exchange.description)}</p>
+      <p className="mt-4 break-words text-lg leading-relaxed">{published(exchange.description)}</p>
       {website ? (
         <p className="mt-4">
           <a href={website} className="btn-ghost as-written inline-flex h-11 items-center px-4 text-sm" rel="noopener noreferrer">
@@ -120,7 +122,7 @@ export default async function ExchangePage({ params }: Params) {
         </Fact>
         <Fact label="Email">
           {exchange.email ? (
-            <a className="underline decoration-cyan underline-offset-4" href={`mailto:${exchange.email}`}>
+            <a className="break-all underline decoration-cyan underline-offset-4" href={`mailto:${exchange.email}`}>
               {exchange.email}
             </a>
           ) : (

@@ -9,10 +9,8 @@ type Params = { params: Promise<{ sponsor: string }> };
 function appOrigin(request: Request): string {
   if (process.env.VERCEL_ENV === "production") return siteUrl();
   const url = new URL(request.url);
-  const forwarded = (request.headers.get("x-forwarded-host") || request.headers.get("host") || url.host)
-    .split(",")[0]
-    ?.trim();
-  const host = forwarded || url.host;
+  // `host` is set by the platform. A client-supplied x-forwarded-host is not.
+  const host = (request.headers.get("host") || url.host).split(",")[0]?.trim() || url.host;
   const hostname = host.split(":")[0].toLowerCase();
   const trusted =
     hostname === "barterexchanges.org" ||
@@ -20,8 +18,9 @@ function appOrigin(request: Request): string {
     hostname === "127.0.0.1" ||
     hostname.endsWith(".vercel.app");
   if (!trusted) return siteUrl();
-  const proto =
-    hostname === "barterexchanges.org" ? "https" : request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+  if (hostname === "barterexchanges.org" || hostname.endsWith(".vercel.app")) return `https://${host}`;
+  const forwarded = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+  const proto = forwarded === "http" || forwarded === "https" ? forwarded : "http";
   return `${proto}://${host}`;
 }
 

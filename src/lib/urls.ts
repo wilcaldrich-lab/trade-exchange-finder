@@ -10,8 +10,12 @@ export function isSafeHttpUrl(value: string): boolean {
 
 export function safeRedirectTarget(value: string, origin: string): URL | null {
   if (value.startsWith("/") && !value.startsWith("//")) {
+    // Backslash and whitespace are URL-parser escapes that can leave the origin.
+    if (/[\\\s\u0000]/.test(value)) return null;
     try {
-      return new URL(value, origin);
+      const url = new URL(value, origin);
+      if (url.origin !== new URL(origin).origin) return null;
+      return url;
     } catch {
       return null;
     }

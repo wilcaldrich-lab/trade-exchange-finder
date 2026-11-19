@@ -32,7 +32,10 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
           description: "A directory of business barter and trade exchanges.",
           potentialAction: {
             "@type": "SearchAction",
-            target: `${origin}/?q={search_term_string}`,
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${origin}/?q={search_term_string}`,
+            },
             "query-input": "required name=search_term_string",
           },
         }}

@@ -5,6 +5,7 @@ import { ExchangeBrowser } from "@/components/ExchangeBrowser";
 import { JsonLd } from "@/components/JsonLd";
 import { getExchanges } from "@/lib/catalog";
 import { decorate } from "@/lib/directory";
+import { clientIpFromHeaders, rateLimit } from "@/lib/rate-limit";
 import { filtersActive, filterExchanges, parseFilters, type Filters } from "@/lib/search";
 import { logZeroResult } from "@/lib/search-log";
 import { absoluteUrl } from "@/lib/site";
@@ -44,7 +45,12 @@ export async function DirectoryPage({
     country: lockCountry ? "" : parsed.country,
   };
   const results = filterExchanges(scoped, filters);
-  if (headerList.get("x-count-view") === "1" && filtersActive(filters) && results.length === 0) {
+  if (
+    headerList.get("x-count-view") === "1" &&
+    filtersActive(filters) &&
+    results.length === 0 &&
+    rateLimit(`search:${clientIpFromHeaders(headerList)}`, 20, 60_000)
+  ) {
     after(() => logZeroResult(filters));
   }
 
@@ -54,7 +60,7 @@ export async function DirectoryPage({
     name: heading,
     url: absoluteUrl(canonical),
     numberOfItems: results.length,
-    itemListElement: results.slice(0, 41).map((exchange, index) => ({
+    itemListElement: results.map((exchange, index) => ({
       "@type": "ListItem",
       position: index + 1,
       url: absoluteUrl(`/exchange/${exchange.slug}`),

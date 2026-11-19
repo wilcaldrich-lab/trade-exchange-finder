@@ -26,11 +26,13 @@ test("document and RSC navigations count, empty dest and bots do not", () => {
   }
 });
 
-test("matcher skips scripts, data files, and icons", () => {
-  const matcher = config.matcher.join(" ");
-  for (const ext of ["js", "json", "txt", "xml", "ico", "css", "map"]) {
-    assert.match(matcher, new RegExp(ext));
+test("static files are not counted, and the proxy still sees robots and the sitemap", () => {
+  const visit = { pathname: "/robots.txt", dest: "document", isRsc: false, prefetch: false, userAgent: "Mozilla/5.0" };
+  for (const pathname of ["/robots.txt", "/sitemap.xml", "/favicon.ico", "/icon.png"]) {
+    assert.equal(shouldCountView({ ...visit, pathname }), false, pathname);
   }
+  assert.match(config.matcher.join(" "), /_next\/static/);
+  assert.doesNotMatch(config.matcher.join(" "), /xml/);
 });
 
 test("404 path produces no insert", () => {
