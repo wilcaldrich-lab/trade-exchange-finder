@@ -317,7 +317,7 @@
       "city": "Singapore",
       "state_region": null,
       "country": "SG",
-      "phone": "852-300-85832",
+      "phone": "+65 6438 3128",
       "email": "info@bbxworld.com",
       "networks": [
         "IRTA"
@@ -334,10 +334,11 @@
       "source_urls": [
         "https://irta.com/member-directory/",
         "https://bbxworld.com/GL/en/home",
-        "https://bbxworld.com/GL/en/AboutBBX"
+        "https://bbxworld.com/GL/en/AboutBBX",
+        "https://www.bbxworld.com/GL/en/Contact"
       ],
       "website_http_status": 200,
-      "last_checked": "2026-11-10"
+      "last_checked": "2026-11-21"
     },
     {
       "name": "BBX UK",
@@ -706,7 +707,7 @@
       "networks": [
         "IRTA"
       ],
-      "description": "BancMarc is a cashless business trade network based in the Richmond, Virginia area. The IRTA directory still lists the company as The Barter Authority at the same Henrico address; the website at barterauthority.com now presents the BancMarc brand and says it has helped businesses since 1980.",
+      "description": "BancMarc is a cashless business trade network based in the Richmond, Virginia area. The IRTA directory still lists the company as The Barter Authority at the same Henrico address; the official website is bancmarc.com (barterauthority.com redirects there) and says it has helped businesses since 1980.",
       "cash_fee_percent": null,
       "monthly_dues": null,
       "annual_dues": null,
@@ -717,11 +718,10 @@
       "year_founded": 1980,
       "source_urls": [
         "https://irta.com/member-directory/",
-        "https://barterauthority.com/",
         "https://bancmarc.com/"
       ],
       "website_http_status": 200,
-      "last_checked": "2026-11-10"
+      "last_checked": "2026-11-21"
     },
     {
       "name": "The Barter Company",

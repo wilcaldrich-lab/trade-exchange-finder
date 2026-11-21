@@ -21,7 +21,10 @@ test("seed file has 41 unique sourced exchanges", () => {
   for (const exchange of seed) {
     assert.ok(exchange.name);
     assert.ok(exchange.source_urls.length > 0);
-    assert.equal(exchange.last_checked, "2026-11-10");
+    assert.equal(
+      exchange.last_checked,
+      exchange.slug === "bbx-global" || exchange.slug === "bancmarc" ? "2026-11-21" : "2026-11-10",
+    );
   }
 });
 
