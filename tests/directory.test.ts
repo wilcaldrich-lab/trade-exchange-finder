@@ -15,9 +15,27 @@ const seed = exchangesFromUnknown(
   JSON.parse(readFileSync(new URL("../data/exchanges.json", import.meta.url), "utf8")) as unknown,
 );
 
-test("seed file has 40 unique sourced exchanges", () => {
-  assert.equal(seed.length, 40);
-  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 40);
+const addedWorldwide = new Map([
+  ["itex", "US"],
+  ["bartercard-australia", "AU"],
+  ["bartercard-new-zealand", "NZ"],
+  ["wir-bank-chw", "CH"],
+  ["res", "BE"],
+  ["bxi-barter-exchange-of-india", "IN"],
+  ["metro-trading-association", "US"],
+  ["itrade-colorado", "US"],
+  ["tbt-barter", "US"],
+  ["barter-network-inc", "US"],
+  ["badger-barter", "US"],
+  ["via-permuta", "BR"],
+  ["exmerce", "CA"],
+  ["barter-de-mexico", "MX"],
+  ["london-barter-network", "CA"],
+]);
+
+test("seed file has 55 unique sourced exchanges", () => {
+  assert.equal(seed.length, 55);
+  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 55);
   assert.equal(
     seed.some((exchange) => exchange.slug === "trade-euro" || exchange.website?.includes("tradeeuro.eu")),
     false,
@@ -32,7 +50,17 @@ test("seed file has 40 unique sourced exchanges", () => {
   for (const exchange of seed) {
     assert.ok(exchange.name);
     assert.ok(exchange.source_urls.length > 0);
-    assert.equal(exchange.last_checked, rechecked.get(exchange.slug) ?? "2026-11-10");
+    const expectedDate =
+      rechecked.get(exchange.slug) ?? (addedWorldwide.has(exchange.slug) ? "2026-11-23" : "2026-11-10");
+    assert.equal(exchange.last_checked, expectedDate, exchange.slug);
+  }
+  assert.equal(addedWorldwide.size, 15);
+  for (const [slug, country] of addedWorldwide) {
+    const exchange = seed.find((item) => item.slug === slug);
+    assert.ok(exchange, slug);
+    assert.equal(exchange.country, country);
+    assert.equal(exchange.website_http_status, 200);
+    assert.ok(exchange.description);
   }
 
   const crescent = seed.find((exchange) => exchange.slug === "crescent-city-trade-exchange");
@@ -144,6 +172,16 @@ test("listing contact migration matches the seed corrections", () => {
   assert.match(sql, /slug = 'bbx-uk'/);
   assert.match(sql, /info\.uk@bbxworld\.com/);
   assert.doesNotMatch(sql, /tradeeuro\.eu|bexb@bexb\.it|tanya@crescentcitytrade\.com|laura\.whitemore@bbxworld\.com/);
+});
+
+test("worldwide exchange migration inserts the same 15 slugs once", () => {
+  const sql = readFileSync(new URL("../db/migrations/004_add_worldwide_exchanges.sql", import.meta.url), "utf8");
+  assert.match(sql, /ON CONFLICT \(slug\) DO NOTHING/);
+  assert.match(sql, /INSERT INTO schema_migrations \(id\)\s+VALUES \('004_add_worldwide_exchanges'\)/);
+  assert.doesNotMatch(sql, /classification|evidence/);
+  for (const slug of addedWorldwide.keys()) {
+    assert.equal(sql.split(`'${slug}'`).length - 1, 1, slug);
+  }
 });
 
 test("migration file creates the directory tables", () => {
