@@ -7,6 +7,11 @@ const CALLING_CODES: Record<string, string> = {
   IT: "39",
   BR: "55",
   BE: "32",
+  AU: "61",
+  NZ: "64",
+  CH: "41",
+  IN: "91",
+  MX: "52",
 };
 
 /** tel: link that keeps a leading plus, or adds the country's calling code. */

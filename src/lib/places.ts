@@ -64,6 +64,11 @@ const COUNTRY_NAMES: Record<string, string> = {
   IT: "Italy",
   BR: "Brazil",
   BE: "Belgium",
+  AU: "Australia",
+  NZ: "New Zealand",
+  CH: "Switzerland",
+  IN: "India",
+  MX: "Mexico",
 };
 
 /** Non-US regions in the directory, including postal codes and the published name. */
@@ -80,6 +85,13 @@ const REGION_NAMES: Record<string, string> = {
   "BR:MG": "Minas Gerais",
   "BR:MINAS GERAIS": "Minas Gerais",
   "BE:BRUSSELS": "Brussels",
+  "BE:FLANDERS": "Flanders",
+  "CA:AB": "Alberta",
+  "CA:ALBERTA": "Alberta",
+  "CH:BASEL-STADT": "Basel-Stadt",
+  "IN:MAHARASHTRA": "Maharashtra",
+  "MX:CDMX": "Mexico City",
+  "MX:MEXICO CITY": "Mexico City",
 };
 
 export function stateName(state: string | null | undefined, country: string | null | undefined): string | null {
