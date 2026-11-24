@@ -69,6 +69,8 @@ const COUNTRY_NAMES: Record<string, string> = {
   CH: "Switzerland",
   IN: "India",
   MX: "Mexico",
+  NL: "Netherlands",
+  JP: "Japan",
 };
 
 /** Non-US regions in the directory, including postal codes and the published name. */
@@ -80,6 +82,10 @@ const REGION_NAMES: Record<string, string> = {
   "GB:DORSET": "Dorset",
   "IT:LOMBARDY": "Lombardy",
   "IT:SARDINIA": "Sardinia",
+  "IT:VENETO": "Veneto",
+  "IT:ABRUZZO": "Abruzzo",
+  "NL:UTRECHT": "Utrecht",
+  "JP:TOKYO": "Tokyo",
   "BR:SP": "Sao Paulo",
   "BR:SAO PAULO": "Sao Paulo",
   "BR:MG": "Minas Gerais",

@@ -33,9 +33,25 @@ const addedWorldwide = new Map([
   ["london-barter-network", "CA"],
 ]);
 
-test("seed file has 55 unique sourced exchanges", () => {
-  assert.equal(seed.length, 55);
-  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 55);
+const addedRound2 = new Map([
+  ["barterpay", "CA"],
+  ["art-of-barter", "US"],
+  ["itrade-pay", "US"],
+  ["oklahoma-barter-exchange", "US"],
+  ["circuito-linx", "IT"],
+  ["circuito-venetex", "IT"],
+  ["abrex", "IT"],
+  ["united-economy", "NL"],
+  ["barter-japan", "JP"],
+]);
+
+test("seed file has 64 unique sourced exchanges", () => {
+  const catalog = JSON.parse(readFileSync(new URL("../data/exchanges.json", import.meta.url), "utf8")) as {
+    count: number;
+  };
+  assert.equal(catalog.count, 64);
+  assert.equal(seed.length, 64);
+  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 64);
   assert.equal(
     seed.some((exchange) => exchange.slug === "trade-euro" || exchange.website?.includes("tradeeuro.eu")),
     false,
@@ -51,7 +67,8 @@ test("seed file has 55 unique sourced exchanges", () => {
     assert.ok(exchange.name);
     assert.ok(exchange.source_urls.length > 0);
     const expectedDate =
-      rechecked.get(exchange.slug) ?? (addedWorldwide.has(exchange.slug) ? "2026-11-23" : "2026-11-10");
+      rechecked.get(exchange.slug) ??
+      (addedRound2.has(exchange.slug) ? "2026-11-24" : addedWorldwide.has(exchange.slug) ? "2026-11-23" : "2026-11-10");
     assert.equal(exchange.last_checked, expectedDate, exchange.slug);
   }
   assert.equal(addedWorldwide.size, 15);
@@ -62,6 +79,47 @@ test("seed file has 55 unique sourced exchanges", () => {
     assert.equal(exchange.website_http_status, 200);
     assert.ok(exchange.description);
   }
+  assert.equal(addedRound2.size, 9);
+  for (const [slug, country] of addedRound2) {
+    const exchange = seed.find((item) => item.slug === slug);
+    assert.ok(exchange, slug);
+    assert.equal(exchange.country, country);
+    assert.equal(exchange.website_http_status, 200);
+    assert.ok(exchange.description);
+    assert.equal(exchange.networks.length, 0);
+  }
+
+  const barterpay = seed.find((exchange) => exchange.slug === "barterpay");
+  assert.ok(barterpay);
+  assert.equal(barterpay.city, "Stoney Creek");
+  assert.equal(barterpay.state_region, "ON");
+  assert.equal(barterpay.monthly_dues, "$15");
+  assert.equal(barterpay.joining_fee, "$300");
+  assert.equal(barterpay.cash_fee_percent, null);
+  assert.equal(barterpay.approx_member_count, 4000);
+  assert.equal(barterpay.email, "hello@barterpay.ca");
+
+  for (const slug of ["circuito-linx", "circuito-venetex", "abrex"]) {
+    const exchange = seed.find((item) => item.slug === slug);
+    assert.ok(exchange);
+    assert.match(exchange.description ?? "", /commercial-credit circuit \(Sardex-style\) that works like a business barter exchange/);
+  }
+
+  const united = seed.find((exchange) => exchange.slug === "united-economy");
+  assert.ok(united);
+  assert.equal(united.phone, null);
+  assert.equal(united.email, "info@unitedeconomy.nl");
+  assert.equal(united.approx_member_count, 700);
+  assert.match(united.description ?? "", /complementary-currency \/ circular-money cooperative/);
+  assert.match(united.description ?? "", /rather than a classic trade exchange/);
+
+  const japan = seed.find((exchange) => exchange.slug === "barter-japan");
+  assert.ok(japan);
+  assert.equal(japan.phone, "03-5379-3965");
+  assert.equal(japan.email, null);
+  assert.equal(japan.cash_fee_percent, 3.3);
+  assert.equal(japan.year_founded, 2009);
+  assert.match(japan.description ?? "", /No public email address was found/);
 
   const crescent = seed.find((exchange) => exchange.slug === "crescent-city-trade-exchange");
   assert.ok(crescent);
@@ -182,6 +240,19 @@ test("worldwide exchange migration inserts the same 15 slugs once", () => {
   for (const slug of addedWorldwide.keys()) {
     assert.equal(sql.split(`'${slug}'`).length - 1, 1, slug);
   }
+});
+
+test("round-2 exchange migration inserts the same 9 slugs once", () => {
+  const sql = readFileSync(new URL("../db/migrations/005_add_round2_exchanges.sql", import.meta.url), "utf8");
+  assert.match(sql, /ON CONFLICT \(slug\) DO NOTHING/);
+  assert.match(sql, /INSERT INTO schema_migrations \(id\)\s+VALUES \('005_add_round2_exchanges'\)/);
+  assert.doesNotMatch(sql, /classification|evidence/);
+  for (const slug of addedRound2.keys()) {
+    assert.equal(sql.split(`'${slug}'`).length - 1, 1, slug);
+  }
+  assert.match(sql, /commercial-credit circuit \(Sardex-style\) that works like a business barter exchange/);
+  assert.match(sql, /complementary-currency \/ circular-money cooperative/);
+  assert.match(sql, /'barter-japan',\s*\n\s*'https:\/\/www\.barter-japan\.com\/',\s*\n\s*'Tokyo',\s*\n\s*'Tokyo',\s*\n\s*'JP',\s*\n\s*'03-5379-3965',\s*\n\s*NULL,/);
 });
 
 test("migration file creates the directory tables", () => {

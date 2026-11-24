@@ -47,12 +47,19 @@ test("state slugs use the full region name", () => {
   assert.equal(stateLabel("Basel-Stadt", "CH"), "Basel-Stadt");
   assert.equal(stateLabel("Flanders", "BE"), "Flanders");
   assert.equal(stateLabel("Maharashtra", "IN"), "Maharashtra");
+  assert.equal(stateLabel("Veneto", "IT"), "Veneto");
+  assert.equal(stateLabel("Abruzzo", "IT"), "Abruzzo");
+  assert.equal(stateLabel("Utrecht", "NL"), "Utrecht");
+  assert.equal(stateLabel("Tokyo", "JP"), "Tokyo");
   assert.equal(countryName("AU"), "Australia");
   assert.equal(countryName("NZ"), "New Zealand");
   assert.equal(countryName("CH"), "Switzerland");
   assert.equal(countryName("BE"), "Belgium");
   assert.equal(countryName("IN"), "India");
   assert.equal(countryName("MX"), "Mexico");
+  assert.equal(countryName("IT"), "Italy");
+  assert.equal(countryName("NL"), "Netherlands");
+  assert.equal(countryName("JP"), "Japan");
 
   for (const exchange of seed) {
     if (exchange.country) {
@@ -65,7 +72,7 @@ test("state slugs use the full region name", () => {
   }
 
   const countries = countryGroups(seed);
-  for (const code of ["au", "nz", "ch", "be", "in", "mx"]) {
+  for (const code of ["au", "nz", "ch", "be", "in", "mx", "it", "nl", "jp"]) {
     assert.ok(countries.get(code)?.length, code);
   }
   const groups = stateGroups(seed);
@@ -76,6 +83,23 @@ test("state slugs use the full region name", () => {
   assert.equal(groups.get("maharashtra")?.label, "Maharashtra");
   assert.equal(groups.get("basel-stadt")?.label, "Basel-Stadt");
   assert.ok(groups.get("ontario")?.exchanges.some((exchange) => exchange.slug === "london-barter-network"));
+  assert.ok(groups.get("ontario")?.exchanges.some((exchange) => exchange.slug === "barterpay"));
+  assert.ok(groups.get("lombardy")?.exchanges.some((exchange) => exchange.slug === "circuito-linx"));
+  assert.ok(groups.get("lombardy")?.exchanges.some((exchange) => exchange.slug === "bexb"));
+  assert.equal(groups.get("veneto")?.label, "Veneto");
+  assert.equal(groups.get("veneto")?.country, "IT");
+  assert.ok(groups.get("veneto")?.exchanges.some((exchange) => exchange.slug === "circuito-venetex"));
+  assert.equal(groups.get("abruzzo")?.label, "Abruzzo");
+  assert.ok(groups.get("abruzzo")?.exchanges.some((exchange) => exchange.slug === "abrex"));
+  assert.equal(groups.get("utrecht")?.label, "Utrecht");
+  assert.equal(groups.get("utrecht")?.country, "NL");
+  assert.ok(groups.get("utrecht")?.exchanges.some((exchange) => exchange.slug === "united-economy"));
+  assert.equal(groups.get("tokyo")?.label, "Tokyo");
+  assert.equal(groups.get("tokyo")?.country, "JP");
+  assert.ok(groups.get("tokyo")?.exchanges.some((exchange) => exchange.slug === "barter-japan"));
+  assert.equal(groups.get("illinois")?.exchanges.some((exchange) => exchange.slug === "art-of-barter"), true);
+  assert.equal(groups.get("arizona")?.exchanges.some((exchange) => exchange.slug === "itrade-pay"), true);
+  assert.equal(groups.get("oklahoma")?.exchanges.some((exchange) => exchange.slug === "oklahoma-barter-exchange"), true);
 
   const views = seed.map((exchange) => ({
     ...exchange,
