@@ -15,17 +15,41 @@ const seed = exchangesFromUnknown(
   JSON.parse(readFileSync(new URL("../data/exchanges.json", import.meta.url), "utf8")) as unknown,
 );
 
-test("seed file has 41 unique sourced exchanges", () => {
-  assert.equal(seed.length, 41);
-  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 41);
+test("seed file has 40 unique sourced exchanges", () => {
+  assert.equal(seed.length, 40);
+  assert.equal(new Set(seed.map((exchange) => exchange.slug)).size, 40);
+  assert.equal(
+    seed.some((exchange) => exchange.slug === "trade-euro" || exchange.website?.includes("tradeeuro.eu")),
+    false,
+  );
+  const rechecked = new Map([
+    ["bbx-global", "2026-11-21"],
+    ["bancmarc", "2026-11-21"],
+    ["bbx-uk", "2026-11-24"],
+    ["bexb", "2026-11-24"],
+    ["crescent-city-trade-exchange", "2026-11-24"],
+  ]);
   for (const exchange of seed) {
     assert.ok(exchange.name);
     assert.ok(exchange.source_urls.length > 0);
-    assert.equal(
-      exchange.last_checked,
-      exchange.slug === "bbx-global" || exchange.slug === "bancmarc" ? "2026-11-21" : "2026-11-10",
-    );
+    assert.equal(exchange.last_checked, rechecked.get(exchange.slug) ?? "2026-11-10");
   }
+
+  const crescent = seed.find((exchange) => exchange.slug === "crescent-city-trade-exchange");
+  assert.ok(crescent);
+  assert.equal(crescent.website, "https://crescentcitytrade.net/");
+  assert.equal(crescent.email, "info@crescentcitytrade.net");
+
+  const bexb = seed.find((exchange) => exchange.slug === "bexb");
+  assert.ok(bexb);
+  assert.equal(bexb.email, "info@bexb.it");
+  assert.match(bexb.description ?? "", /Since 16 July 2025/);
+  assert.match(bexb.description ?? "", /In-Lire S\.p\.A\. Società Benefit/);
+
+  const bbxUk = seed.find((exchange) => exchange.slug === "bbx-uk");
+  assert.ok(bbxUk);
+  assert.equal(bbxUk.website, "https://bbxuk.com/");
+  assert.equal(bbxUk.email, "info.uk@bbxworld.com");
 });
 
 test("missing facts render as Not published", () => {
@@ -106,6 +130,20 @@ test("newsletter pick is five unique exchanges", () => {
 test("slugify keeps urls readable", () => {
   assert.equal(slugify("North Yorkshire"), "north-yorkshire");
   assert.equal(slugify("São Paulo"), "sao-paulo");
+});
+
+test("listing contact migration matches the seed corrections", () => {
+  const sql = readFileSync(new URL("../db/migrations/003_listing_contacts.sql", import.meta.url), "utf8");
+  assert.match(sql, /DELETE FROM entries\s+WHERE slug = 'trade-euro'/);
+  assert.match(sql, /slug = 'crescent-city-trade-exchange'/);
+  assert.match(sql, /https:\/\/crescentcitytrade\.net\//);
+  assert.match(sql, /info@crescentcitytrade\.net/);
+  assert.match(sql, /slug = 'bexb'/);
+  assert.match(sql, /info@bexb\.it/);
+  assert.match(sql, /Since 16 July 2025/);
+  assert.match(sql, /slug = 'bbx-uk'/);
+  assert.match(sql, /info\.uk@bbxworld\.com/);
+  assert.doesNotMatch(sql, /tradeeuro\.eu|bexb@bexb\.it|tanya@crescentcitytrade\.com|laura\.whitemore@bbxworld\.com/);
 });
 
 test("migration file creates the directory tables", () => {

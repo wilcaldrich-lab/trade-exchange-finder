@@ -1,7 +1,7 @@
 {
   "generated_on": "2026-11-10",
   "timezone": "America/New_York",
-  "count": 41,
+  "count": 40,
   "notes": "Every value is taken from a public IRTA or NATE directory listing and/or the exchange's own website, checked with curl on 2026-11-10 (America/New_York). Fields are null when a figure was not published. cash_fee_percent is set only when the site states a single percentage; plan ranges and qualitative fee language are in fees_notes. Software vendors (Trade Studio, VirtualBarter), parked domains, and non-exchange IRTA listings were omitted. Several additional directory members had websites that failed TLS or returned only a captcha/challenge and are not included.",
   "primary_directory_sources": [
     "https://irta.com/member-directory/",
@@ -348,7 +348,7 @@
       "state_region": "Dorset",
       "country": "GB",
       "phone": "0333-400-2014",
-      "email": "laura.whitemore@bbxworld.com",
+      "email": "info.uk@bbxworld.com",
       "networks": [
         "IRTA"
       ],
@@ -363,10 +363,11 @@
       "year_founded": null,
       "source_urls": [
         "https://irta.com/member-directory/",
-        "https://bbxuk.com/"
+        "https://bbxuk.com/",
+        "https://bbxuk.com/terms-of-use/"
       ],
       "website_http_status": 200,
-      "last_checked": "2026-11-10"
+      "last_checked": "2026-11-24"
     },
     {
       "name": "BexB (In-Lire S.p.A.)",
@@ -376,11 +377,11 @@
       "state_region": "Lombardy",
       "country": "IT",
       "phone": "39-030-2059770",
-      "email": "bexb@bexb.it",
+      "email": "info@bexb.it",
       "networks": [
         "IRTA"
       ],
-      "description": "Circuito BexB, operated by In-Lire S.p.A., is an Italian commercial-intermediation circuit that has helped member companies buy and sell among themselves since 2001. The company describes itself as a shared purchasing office and states that more than €400 million has been transacted on the circuit since 2012.",
+      "description": "Circuito BexB is an Italian commercial-intermediation circuit that has helped member companies buy and sell among themselves since 2001. Since 16 July 2025 it has been operated by In-Lire S.p.A. Società Benefit under a business-unit lease. The company describes itself as a shared purchasing office and states that more than €400 million has been transacted on the circuit since 2012.",
       "cash_fee_percent": null,
       "monthly_dues": null,
       "annual_dues": null,
@@ -394,7 +395,7 @@
         "https://bexb.it/"
       ],
       "website_http_status": 200,
-      "last_checked": "2026-11-10"
+      "last_checked": "2026-11-24"
     },
     {
       "name": "BizX",
@@ -525,7 +526,7 @@
       "state_region": "LA",
       "country": "US",
       "phone": "504-482-9000",
-      "email": "tanya@crescentcitytrade.com",
+      "email": "info@crescentcitytrade.net",
       "networks": [
         "IRTA"
       ],
@@ -541,10 +542,11 @@
       "source_urls": [
         "https://irta.com/member-directory/",
         "https://crescentcitytrade.net/",
-        "https://crescentcitytrade.net/about-ccte/"
+        "https://crescentcitytrade.net/about-ccte/",
+        "https://crescentcitytrade.net/contact/"
       ],
       "website_http_status": 200,
-      "last_checked": "2026-11-10"
+      "last_checked": "2026-11-24"
     },
     {
       "name": "Green Apple Barter",
@@ -842,35 +844,6 @@
         "https://irta.com/member-directory/",
         "https://www.tradebank.com/",
         "https://www.tradebank.com/about-us"
-      ],
-      "website_http_status": 200,
-      "last_checked": "2026-11-10"
-    },
-    {
-      "name": "Trade Euro",
-      "slug": "trade-euro",
-      "website": "https://tradeeuro.eu/",
-      "city": "Brussels",
-      "state_region": "Brussels",
-      "country": "BE",
-      "phone": "+32 475 44 76 76",
-      "email": null,
-      "networks": [
-        "IRTA"
-      ],
-      "description": "Trade Euro is a complementary payment system for entrepreneurs, based in Brussels. Member businesses trade with one another using Trade Euro as a medium of exchange, which the company promotes as a way to raise turnover and find new customers.",
-      "cash_fee_percent": 4.5,
-      "monthly_dues": null,
-      "annual_dues": null,
-      "joining_fee": "€495 excl. VAT, one-time",
-      "fees_notes": "FAQ (Dutch): one-time joining fee of €495 excl. VAT, plus a service fee (service-vergoeding) of 4.5% on sales made in Trade Euro.",
-      "approx_member_count": null,
-      "member_count_notes": null,
-      "year_founded": null,
-      "source_urls": [
-        "https://irta.com/member-directory/",
-        "https://tradeeuro.eu/",
-        "https://tradeeuro.eu/faq/"
       ],
       "website_http_status": 200,
       "last_checked": "2026-11-10"
