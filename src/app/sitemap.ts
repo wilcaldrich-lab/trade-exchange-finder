@@ -5,7 +5,10 @@ import { siteUrl } from "@/lib/site";
 
 const SITEMAP_UPDATED = new Date("2026-11-12T00:00:00.000Z");
 
-export const revalidate = 300;
+// Next.js 16.4.6 saves a prerendered metadata sitemap as a static file and
+// ignores its revalidate setting (vercel/next.js#99055). Render on each
+// request. getExchanges() already caches the catalog for 300 seconds.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = siteUrl();
