@@ -3,6 +3,7 @@ import { after } from "next/server";
 import { headers } from "next/headers";
 import { ExchangeBrowser } from "@/components/ExchangeBrowser";
 import { JsonLd } from "@/components/JsonLd";
+import { NewsletterCta } from "@/components/NewsletterCta";
 import { getExchanges } from "@/lib/catalog";
 import { decorate } from "@/lib/directory";
 import { clientIpFromHeaders, rateLimit } from "@/lib/rate-limit";
@@ -22,6 +23,7 @@ export async function DirectoryPage({
   featuredSlug = null,
   feature = null,
   showBrowse = false,
+  newsletterSource = null,
 }: {
   searchParams: SearchParams;
   heading: string;
@@ -32,6 +34,7 @@ export async function DirectoryPage({
   featuredSlug?: string | null;
   feature?: { slug: string; name: string; tagline: string | null } | null;
   showBrowse?: boolean;
+  newsletterSource?: string | null;
 }) {
   const headerList = await headers();
   const all = decorate(await getExchanges());
@@ -94,6 +97,11 @@ export async function DirectoryPage({
           featuredSlug={featuredSlug}
         />
       </div>
+      {newsletterSource ? (
+        <div className="mt-8">
+          <NewsletterCta source={newsletterSource} />
+        </div>
+      ) : null}
       {showBrowse ? (
         <section className="mt-8 border-t border-line pt-5">
           <h2 className="font-display text-2xl leading-tight">Browse by state</h2>

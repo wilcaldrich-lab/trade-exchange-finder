@@ -51,6 +51,7 @@ export default async function CountryPage({ params, searchParams }: Params) {
         lede={`${group.count} listed ${group.count === 1 ? "exchange" : "exchanges"} in ${group.label}.`}
         canonical={`/country/${group.slug}`}
         lockCountry={group.slug}
+        newsletterSource={`country:${group.slug}`}
       />
     </>
   );

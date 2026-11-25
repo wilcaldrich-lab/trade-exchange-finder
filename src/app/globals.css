@@ -272,11 +272,31 @@ a {
   border-bottom: 2px solid var(--pine);
 }
 
-.market-card:hover:not(.market-card-featured) {
+.market-card:hover:not(.market-card-featured):not(.newsletter-cta) {
   border-color: rgba(182, 255, 60, 0.5);
   box-shadow:
     inset 0 0 0 1px rgba(182, 255, 60, 0.08),
     0 0 20px rgba(57, 240, 255, 0.1);
+}
+
+.newsletter-cta {
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(182, 255, 60, 0.1), transparent 42%),
+    radial-gradient(90% 80% at 0% 100%, rgba(255, 61, 154, 0.1), transparent 46%),
+    #0e141c;
+  box-shadow:
+    inset 0 0 0 1px rgba(57, 240, 255, 0.05),
+    0 0 32px rgba(57, 240, 255, 0.12);
+}
+
+.newsletter-cta-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--stamp), var(--cyan) 48%, var(--pine));
+  pointer-events: none;
 }
 
 .market-card-featured {
@@ -309,10 +329,27 @@ a {
   box-shadow: inset 0 0 16px rgba(182, 255, 60, 0.05);
 }
 
+.prompt:focus-within {
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 0 2px rgba(57, 240, 255, 0.9),
+    inset 0 0 16px rgba(57, 240, 255, 0.08);
+}
+
 .prompt input {
   border: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.prompt input:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.bg-pine:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
 }
 
 .field,

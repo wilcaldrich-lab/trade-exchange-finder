@@ -4,7 +4,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { CountView } from "@/components/CountView";
 import { JsonLd } from "@/components/JsonLd";
-import { SignupForm } from "@/components/SignupForm";
+import { NewsletterCta } from "@/components/NewsletterCta";
 import { resolveExchange } from "@/lib/catalog";
 import type { Exchange } from "@/lib/exchange";
 import { NOT_PUBLISHED, formatCashFee, formatCount, formatDate, published } from "@/lib/format";
@@ -158,12 +158,8 @@ export default async function ExchangePage({ params }: Params) {
       <p className="mt-6 text-sm">
         See a mistake? <Link href={`/submit?slug=${exchange.slug}`} className="font-bold underline underline-offset-4">Send a correction</Link>. It is reviewed before anything changes.
       </p>
-      <div className="terminal mt-8 max-w-md px-4 py-4">
-        <p className="kicker">Join the network</p>
-        <h2 className="mt-1 font-display text-2xl leading-tight">Follow this directory</h2>
-        <div className="mt-3">
-          <SignupForm source={`exchange:${exchange.slug}`} />
-        </div>
+      <div className="mt-8">
+        <NewsletterCta source={`exchange:${exchange.slug}`} />
       </div>
     </article>
   );

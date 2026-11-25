@@ -5,14 +5,8 @@ import { emailBlockReason, normalizeEmail } from "@/lib/email-guard";
 import { isReadError, readJson } from "@/lib/http";
 import { clientIp, honeypotFilled, rateLimit } from "@/lib/rate-limit";
 import { sendConfirmEmail } from "@/lib/resend-mail";
+import { cleanSource } from "@/lib/signup-source";
 import { siteUrl } from "@/lib/site";
-
-function cleanSource(value: unknown): string {
-  const source = typeof value === "string" ? value : "home";
-  if (source === "home" || source === "footer" || source === "sponsor") return source;
-  if (/^exchange:[a-z0-9-]{1,80}$/.test(source)) return source;
-  return "home";
-}
 
 function savedButNotMailed(warning: string) {
   return NextResponse.json({ ok: true, saved: true, mailed: false, warning });

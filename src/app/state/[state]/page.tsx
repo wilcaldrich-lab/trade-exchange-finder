@@ -51,6 +51,7 @@ export default async function StatePage({ params, searchParams }: Params) {
         lede={`${group.exchanges.length} listed ${group.exchanges.length === 1 ? "exchange" : "exchanges"} with a published base in ${place}.`}
         canonical={`/state/${group.slug}`}
         lockState={group.slug}
+        newsletterSource={`state:${group.slug}`}
         featuredSlug={sponsor?.exchange_slug || null}
         feature={sponsor ? { slug: sponsor.slug, name: sponsor.name, tagline: sponsor.tagline } : null}
       />
