@@ -32,6 +32,12 @@ test("phone links keep an existing plus and add the country calling code", () =>
   assert.equal(telHref("+32-15-422-776", "BE"), "tel:+3215422776");
   assert.equal(telHref("+39-0362-1637823", "IT"), "tel:+3903621637823");
   assert.equal(telHref("03-5379-3965", "JP"), "tel:+81353793965");
+  assert.equal(telHref("+90-212-438-12-38", "TR"), "tel:+902124381238");
+  assert.equal(telHref("0 212 438 12 38", "TR"), "tel:+902124381238");
+  assert.equal(telHref("+91-920-594-1999", "IN"), "tel:+919205941999");
+  assert.equal(telHref("+48-509-361-260", "PL"), "tel:+48509361260");
+  assert.equal(telHref("+48-531-699-333", "PL"), "tel:+48531699333");
+  assert.equal(telHref("+20-110-124-4210", "EG"), "tel:+201101244210");
 });
 
 test("confirm tokens round trip and expire", () => {
