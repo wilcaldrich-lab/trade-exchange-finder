@@ -47,9 +47,12 @@ export function SignupForm({ source }: { source: string }) {
     }
   }
 
+  const fieldId = `email-${source}`;
+  const errorId = `email-error-${source}`;
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-2">
-      <label htmlFor={`email-${source}`} className="kicker">
+      <label htmlFor={fieldId} className="kicker">
         Email
       </label>
       <div className="flex flex-col gap-2 sm:flex-row">
@@ -58,21 +61,24 @@ export function SignupForm({ source }: { source: string }) {
             &gt;
           </span>
           <input
-            id={`email-${source}`}
+            id={fieldId}
             type="email"
+            name="email"
             required
             autoComplete="email"
             inputMode="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="you@yourbusiness.com"
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? errorId : undefined}
             className="h-12 min-w-0 flex-1 bg-transparent px-2 font-mono text-base"
           />
         </div>
         <button
           type="submit"
           disabled={pending}
-          className="h-12 bg-pine px-4 text-sm text-paper disabled:opacity-60"
+          className="h-12 w-full bg-pine px-4 text-sm text-paper disabled:opacity-60 sm:w-auto"
         >
           {pending ? "Saving…" : "Sign up"}
         </button>
@@ -84,8 +90,16 @@ export function SignupForm({ source }: { source: string }) {
         Fax
         <input tabIndex={-1} autoComplete="off" value={fax} onChange={(event) => setFax(event.target.value)} />
       </label>
-      {message ? <p className="text-sm text-pine">{message}</p> : null}
-      {error ? <p className="text-sm text-stamp" role="alert">{error}</p> : null}
+      {message ? (
+        <p className="text-sm text-pine" role="status">
+          {message}
+        </p>
+      ) : null}
+      {error ? (
+        <p id={errorId} className="text-sm text-stamp" role="alert">
+          {error}
+        </p>
+      ) : null}
     </form>
   );
 }
