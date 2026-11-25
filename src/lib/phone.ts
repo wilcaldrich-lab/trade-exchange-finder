@@ -14,6 +14,11 @@ const CALLING_CODES: Record<string, string> = {
   MX: "52",
   NL: "31",
   JP: "81",
+  TR: "90",
+  PL: "48",
+  PT: "351",
+  SE: "46",
+  EG: "20",
 };
 
 /** tel: link that keeps a leading plus, or adds the country's calling code. */

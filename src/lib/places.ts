@@ -71,6 +71,11 @@ const COUNTRY_NAMES: Record<string, string> = {
   MX: "Mexico",
   NL: "Netherlands",
   JP: "Japan",
+  TR: "Turkey",
+  PL: "Poland",
+  PT: "Portugal",
+  SE: "Sweden",
+  EG: "Egypt",
 };
 
 /** Non-US regions in the directory, including postal codes and the published name. */
@@ -96,6 +101,10 @@ const REGION_NAMES: Record<string, string> = {
   "CA:ALBERTA": "Alberta",
   "CH:BASEL-STADT": "Basel-Stadt",
   "IN:MAHARASHTRA": "Maharashtra",
+  "IN:DELHI": "Delhi",
+  "TR:ISTANBUL": "Istanbul",
+  "SE:OSTERGOTLAND": "Östergötland",
+  "SE:ÖSTERGÖTLAND": "Östergötland",
   "MX:CDMX": "Mexico City",
   "MX:MEXICO CITY": "Mexico City",
 };

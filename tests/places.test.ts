@@ -60,6 +60,14 @@ test("state slugs use the full region name", () => {
   assert.equal(countryName("IT"), "Italy");
   assert.equal(countryName("NL"), "Netherlands");
   assert.equal(countryName("JP"), "Japan");
+  assert.equal(countryName("TR"), "Turkey");
+  assert.equal(countryName("PL"), "Poland");
+  assert.equal(countryName("PT"), "Portugal");
+  assert.equal(countryName("SE"), "Sweden");
+  assert.equal(countryName("EG"), "Egypt");
+  assert.equal(stateLabel("Delhi", "IN"), "Delhi");
+  assert.equal(stateLabel("Istanbul", "TR"), "Istanbul");
+  assert.equal(stateLabel("Östergötland", "SE"), "Östergötland");
 
   for (const exchange of seed) {
     if (exchange.country) {
@@ -72,7 +80,7 @@ test("state slugs use the full region name", () => {
   }
 
   const countries = countryGroups(seed);
-  for (const code of ["au", "nz", "ch", "be", "in", "mx", "it", "nl", "jp"]) {
+  for (const code of ["au", "nz", "ch", "be", "in", "mx", "it", "nl", "jp", "tr", "pl", "pt", "se", "eg"]) {
     assert.ok(countries.get(code)?.length, code);
   }
   const groups = stateGroups(seed);
@@ -97,6 +105,16 @@ test("state slugs use the full region name", () => {
   assert.equal(groups.get("tokyo")?.label, "Tokyo");
   assert.equal(groups.get("tokyo")?.country, "JP");
   assert.ok(groups.get("tokyo")?.exchanges.some((exchange) => exchange.slug === "barter-japan"));
+  assert.equal(groups.get("istanbul")?.label, "Istanbul");
+  assert.equal(groups.get("istanbul")?.country, "TR");
+  assert.ok(groups.get("istanbul")?.exchanges.some((exchange) => exchange.slug === "garanti-barter"));
+  assert.equal(groups.get("delhi")?.label, "Delhi");
+  assert.equal(groups.get("delhi")?.country, "IN");
+  assert.ok(groups.get("delhi")?.exchanges.some((exchange) => exchange.slug === "oneuptrade"));
+  assert.ok(groups.get("maharashtra")?.exchanges.some((exchange) => exchange.slug === "bxi-barter-exchange-of-india"));
+  assert.equal(groups.get("ostergotland")?.label, "Östergötland");
+  assert.equal(groups.get("ostergotland")?.country, "SE");
+  assert.ok(groups.get("ostergotland")?.exchanges.some((exchange) => exchange.slug === "svensk-barter"));
   assert.equal(groups.get("illinois")?.exchanges.some((exchange) => exchange.slug === "art-of-barter"), true);
   assert.equal(groups.get("arizona")?.exchanges.some((exchange) => exchange.slug === "itrade-pay"), true);
   assert.equal(groups.get("oklahoma")?.exchanges.some((exchange) => exchange.slug === "oklahoma-barter-exchange"), true);

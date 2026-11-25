@@ -51,6 +51,24 @@ const addedRound2 = [
   "/state/tokyo",
 ];
 
+const addedRound3 = [
+  "/exchange/garanti-barter",
+  "/exchange/oneuptrade",
+  "/exchange/barter-system-polska",
+  "/exchange/clube-de-permuta-portugal",
+  "/exchange/svensk-barter",
+  "/exchange/barter-klub",
+  "/exchange/barter-bureau",
+  "/country/tr",
+  "/country/pl",
+  "/country/pt",
+  "/country/se",
+  "/country/eg",
+  "/state/istanbul",
+  "/state/delhi",
+  "/state/ostergotland",
+];
+
 test("sitemap is rendered per request instead of a frozen revalidate snapshot", () => {
   const source = readFileSync(new URL("../src/app/sitemap.ts", import.meta.url), "utf8");
   assert.match(source, /export const dynamic = "force-dynamic"/);
@@ -81,7 +99,7 @@ test("sitemap lists every exchange, state, and country from the catalog", async 
 
     assert.equal(urls.length, expected.size);
     assert.deepEqual(new Set(urls), expected);
-    for (const path of [...addedAfterPr8, ...addedRound2]) {
+    for (const path of [...addedAfterPr8, ...addedRound2, ...addedRound3]) {
       assert.equal(urls.includes(`${origin}${path}`), true, path);
     }
   } finally {
