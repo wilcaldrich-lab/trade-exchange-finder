@@ -50,8 +50,8 @@ export function SponsorForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
-      <h2 className="font-display text-3xl leading-tight">Get in touch</h2>
-      <p className="text-sm text-muted">No checkout. Tell us which offer you want and where the exchange is based.</p>
+      <h2 className="font-display text-3xl leading-tight">Questions first? Send an inquiry</h2>
+      <p className="text-sm text-muted">Tell us which offer you want and where the exchange is based.</p>
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="text-sm font-bold">
           Name
